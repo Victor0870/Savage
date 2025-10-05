@@ -51,7 +51,7 @@ namespace OctoberStudio.Abilities
                                         // Truyền loại Ability hiện tại để Adapter tự kiểm tra
                                         heroAdapter.PlayWeaponAttack(AbilityType.SteelSword);
                                     }
-
+                    yield return new WaitForSeconds(0.1f);
                     slash.transform.position = PlayerBehavior.CenterPosition;
                     slash.transform.rotation = Quaternion.FromToRotation(Vector2.right, PlayerBehavior.Player.LookDirection) * shashDirections[i].localRotation;
 

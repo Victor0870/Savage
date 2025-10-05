@@ -109,6 +109,13 @@ namespace OctoberStudio
             Character.Transform.SetParent(transform);
             //Character.Transform.ResetLocal();
 
+            Character.Transform.localPosition = Vector3.zero;
+            Character.Transform.localRotation = Quaternion.identity;
+             if (Character is HeroCharacterAdapter heroAdapter)
+                {
+                    heroAdapter.SetCharacterData(Data);
+                }
+
             instance = this;
             healthbar.Init(Data.BaseHP);
             healthbar.SetAutoHideWhenMax(true);
