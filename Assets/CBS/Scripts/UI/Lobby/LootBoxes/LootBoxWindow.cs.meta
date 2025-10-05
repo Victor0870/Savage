@@ -1,0 +1,18 @@
+fileFormatVersion: 2
+guid: f1b1efa01bdddd44e9e69db6992c0ae5
+MonoImporter:
+  externalObjects: {}
+  serializedVersion: 2
+  defaultReferences: []
+  executionOrder: 0
+  icon: {instanceID: 0}
+  userData: 
+  assetBundleName: 
+  assetBundleVariant: 
+AssetOrigin:
+  serializedVersion: 1
+  productId: 200638
+  packageName: CBS - Cross-platform Backend Solution (PlayFab)
+  packageVersion: 1.2.1
+  assetPath: Assets/CBS/Scripts/UI/Lobby/LootBoxes/LootBoxWindow.cs
+  uploadId: 756895

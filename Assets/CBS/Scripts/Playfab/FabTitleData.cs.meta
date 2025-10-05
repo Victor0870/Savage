@@ -1,0 +1,18 @@
+fileFormatVersion: 2
+guid: 4dc21f1d6271330498800571851b4ef5
+MonoImporter:
+  externalObjects: {}
+  serializedVersion: 2
+  defaultReferences: []
+  executionOrder: 0
+  icon: {instanceID: 0}
+  userData: 
+  assetBundleName: 
+  assetBundleVariant: 
+AssetOrigin:
+  serializedVersion: 1
+  productId: 200638
+  packageName: CBS - Cross-platform Backend Solution (PlayFab)
+  packageVersion: 1.2.1
+  assetPath: Assets/CBS/Scripts/Playfab/FabTitleData.cs
+  uploadId: 756895

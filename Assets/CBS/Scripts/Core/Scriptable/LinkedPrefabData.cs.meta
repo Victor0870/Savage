@@ -1,0 +1,18 @@
+fileFormatVersion: 2
+guid: 0c78d78a10777ee4db2c5d95b9e5b20e
+MonoImporter:
+  externalObjects: {}
+  serializedVersion: 2
+  defaultReferences: []
+  executionOrder: 0
+  icon: {instanceID: 0}
+  userData: 
+  assetBundleName: 
+  assetBundleVariant: 
+AssetOrigin:
+  serializedVersion: 1
+  productId: 200638
+  packageName: CBS - Cross-platform Backend Solution (PlayFab)
+  packageVersion: 1.2.1
+  assetPath: Assets/CBS/Scripts/Core/Scriptable/LinkedPrefabData.cs
+  uploadId: 756895

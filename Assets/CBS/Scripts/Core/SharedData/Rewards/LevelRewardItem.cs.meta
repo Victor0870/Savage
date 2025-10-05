@@ -1,0 +1,10 @@
+﻿fileFormatVersion: 2
+guid: 7f4e90fbbdbf4e908d3ed0162deac9b0
+timeCreated: 1700061090
+AssetOrigin:
+  serializedVersion: 1
+  productId: 200638
+  packageName: CBS - Cross-platform Backend Solution (PlayFab)
+  packageVersion: 1.2.1
+  assetPath: Assets/CBS/Scripts/Core/SharedData/Rewards/LevelRewardItem.cs
+  uploadId: 756895

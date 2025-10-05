@@ -1,0 +1,18 @@
+fileFormatVersion: 2
+guid: fa1ad1ae73a03874ca88e95f8ef4e8e7
+MonoImporter:
+  externalObjects: {}
+  serializedVersion: 2
+  defaultReferences: []
+  executionOrder: 0
+  icon: {instanceID: 0}
+  userData: 
+  assetBundleName: 
+  assetBundleVariant: 
+AssetOrigin:
+  serializedVersion: 1
+  productId: 200638
+  packageName: CBS - Cross-platform Backend Solution (PlayFab)
+  packageVersion: 1.2.1
+  assetPath: Assets/CBS/Scripts/Core/SharedData/Functions/Requests/FunctionSendNotificationRequest.cs
+  uploadId: 756895

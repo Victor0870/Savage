@@ -1,0 +1,14 @@
+fileFormatVersion: 2
+guid: 5c5c1b5a55b19494a86398dc8f033d57
+PrefabImporter:
+  externalObjects: {}
+  userData: 
+  assetBundleName: 
+  assetBundleVariant: 
+AssetOrigin:
+  serializedVersion: 1
+  productId: 200638
+  packageName: CBS - Cross-platform Backend Solution (PlayFab)
+  packageVersion: 1.2.1
+  assetPath: Assets/CBS/Prefabs/UI/Common/IconPanel.prefab
+  uploadId: 756895

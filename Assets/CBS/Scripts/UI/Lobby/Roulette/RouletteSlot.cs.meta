@@ -1,0 +1,18 @@
+fileFormatVersion: 2
+guid: a4f3bf3b6cbe52342b7e84d5ae5c780b
+MonoImporter:
+  externalObjects: {}
+  serializedVersion: 2
+  defaultReferences: []
+  executionOrder: 0
+  icon: {instanceID: 0}
+  userData: 
+  assetBundleName: 
+  assetBundleVariant: 
+AssetOrigin:
+  serializedVersion: 1
+  productId: 200638
+  packageName: CBS - Cross-platform Backend Solution (PlayFab)
+  packageVersion: 1.2.1
+  assetPath: Assets/CBS/Scripts/UI/Lobby/Roulette/RouletteSlot.cs
+  uploadId: 756895

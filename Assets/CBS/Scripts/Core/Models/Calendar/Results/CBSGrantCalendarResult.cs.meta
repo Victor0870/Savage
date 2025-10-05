@@ -1,0 +1,18 @@
+fileFormatVersion: 2
+guid: 814c73e8c088bc64f83f5c8ed964c421
+MonoImporter:
+  externalObjects: {}
+  serializedVersion: 2
+  defaultReferences: []
+  executionOrder: 0
+  icon: {instanceID: 0}
+  userData: 
+  assetBundleName: 
+  assetBundleVariant: 
+AssetOrigin:
+  serializedVersion: 1
+  productId: 200638
+  packageName: CBS - Cross-platform Backend Solution (PlayFab)
+  packageVersion: 1.2.1
+  assetPath: Assets/CBS/Scripts/Core/Models/Calendar/Results/CBSGrantCalendarResult.cs
+  uploadId: 756895

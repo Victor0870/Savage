@@ -1,0 +1,18 @@
+fileFormatVersion: 2
+guid: 03d1cce392054874f8989c6e5eee0308
+MonoImporter:
+  externalObjects: {}
+  serializedVersion: 2
+  defaultReferences: []
+  executionOrder: 0
+  icon: {instanceID: 0}
+  userData: 
+  assetBundleName: 
+  assetBundleVariant: 
+AssetOrigin:
+  serializedVersion: 1
+  productId: 200638
+  packageName: CBS - Cross-platform Backend Solution (PlayFab)
+  packageVersion: 1.2.1
+  assetPath: Assets/CBS/Scripts/Core/SharedData/Functions/Results/FunctionFriendsResult.cs
+  uploadId: 756895

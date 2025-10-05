@@ -1,0 +1,10 @@
+fileFormatVersion: 2
+guid: 09da07acddd049b0804a44d1bec48648
+timeCreated: 1689007338
+AssetOrigin:
+  serializedVersion: 1
+  productId: 200638
+  packageName: CBS - Cross-platform Backend Solution (PlayFab)
+  packageVersion: 1.2.1
+  assetPath: Assets/CBS/Scripts/Core/SharedData/Functions/Requests/FunctionSendNotificationToProfileRequest.cs
+  uploadId: 756895

@@ -1,0 +1,10 @@
+fileFormatVersion: 2
+guid: c034b9562b1f49118f966699e333293f
+timeCreated: 1709139712
+AssetOrigin:
+  serializedVersion: 1
+  productId: 200638
+  packageName: CBS - Cross-platform Backend Solution (PlayFab)
+  packageVersion: 1.2.1
+  assetPath: Assets/CBS/Scripts/Core/SharedData/Lootbox/LootboxSolution.cs
+  uploadId: 756895

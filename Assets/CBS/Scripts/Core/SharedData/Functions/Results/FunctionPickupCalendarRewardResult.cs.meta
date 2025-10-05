@@ -1,0 +1,18 @@
+fileFormatVersion: 2
+guid: 2b5828220bea74b4c8d40ccc85931e8d
+MonoImporter:
+  externalObjects: {}
+  serializedVersion: 2
+  defaultReferences: []
+  executionOrder: 0
+  icon: {instanceID: 0}
+  userData: 
+  assetBundleName: 
+  assetBundleVariant: 
+AssetOrigin:
+  serializedVersion: 1
+  productId: 200638
+  packageName: CBS - Cross-platform Backend Solution (PlayFab)
+  packageVersion: 1.2.1
+  assetPath: Assets/CBS/Scripts/Core/SharedData/Functions/Results/FunctionPickupCalendarRewardResult.cs
+  uploadId: 756895

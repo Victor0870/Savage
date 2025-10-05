@@ -1,0 +1,18 @@
+fileFormatVersion: 2
+guid: a1184c2a4b4d39545bfab732f96af9dd
+MonoImporter:
+  externalObjects: {}
+  serializedVersion: 2
+  defaultReferences: []
+  executionOrder: 0
+  icon: {instanceID: 0}
+  userData: 
+  assetBundleName: 
+  assetBundleVariant: 
+AssetOrigin:
+  serializedVersion: 1
+  productId: 200638
+  packageName: CBS - Cross-platform Backend Solution (PlayFab)
+  packageVersion: 1.2.1
+  assetPath: Assets/CBS/Scripts/Editor/Utils/CBSScriptingSymbols.cs
+  uploadId: 756895

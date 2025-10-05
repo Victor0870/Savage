@@ -1,0 +1,14 @@
+fileFormatVersion: 2
+guid: 3ac0d3ac86e1b9e4b9f93daaea62dd99
+PrefabImporter:
+  externalObjects: {}
+  userData: 
+  assetBundleName: 
+  assetBundleVariant: 
+AssetOrigin:
+  serializedVersion: 1
+  productId: 200638
+  packageName: CBS - Cross-platform Backend Solution (PlayFab)
+  packageVersion: 1.2.1
+  assetPath: Assets/CBS/Prefabs/UI/Calendar/CalendarWindow.prefab
+  uploadId: 756895

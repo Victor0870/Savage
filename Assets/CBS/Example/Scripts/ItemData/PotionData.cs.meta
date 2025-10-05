@@ -1,0 +1,18 @@
+fileFormatVersion: 2
+guid: 8f5d0bfdad03083489836db7ad5b2f3b
+MonoImporter:
+  externalObjects: {}
+  serializedVersion: 2
+  defaultReferences: []
+  executionOrder: 0
+  icon: {instanceID: 0}
+  userData: 
+  assetBundleName: 
+  assetBundleVariant: 
+AssetOrigin:
+  serializedVersion: 1
+  productId: 200638
+  packageName: CBS - Cross-platform Backend Solution (PlayFab)
+  packageVersion: 1.2.1
+  assetPath: Assets/CBS/Example/Scripts/ItemData/PotionData.cs
+  uploadId: 756895

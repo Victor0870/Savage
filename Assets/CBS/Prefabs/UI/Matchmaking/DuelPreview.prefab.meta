@@ -1,0 +1,14 @@
+fileFormatVersion: 2
+guid: d52db2c7a594c5f4384a886ffbb6bcb7
+PrefabImporter:
+  externalObjects: {}
+  userData: 
+  assetBundleName: 
+  assetBundleVariant: 
+AssetOrigin:
+  serializedVersion: 1
+  productId: 200638
+  packageName: CBS - Cross-platform Backend Solution (PlayFab)
+  packageVersion: 1.2.1
+  assetPath: Assets/CBS/Prefabs/UI/Matchmaking/DuelPreview.prefab
+  uploadId: 756895

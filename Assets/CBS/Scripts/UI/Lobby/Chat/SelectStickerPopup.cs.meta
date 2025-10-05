@@ -1,0 +1,18 @@
+fileFormatVersion: 2
+guid: 6117603d81383fa4ca77e19952bfc75c
+MonoImporter:
+  externalObjects: {}
+  serializedVersion: 2
+  defaultReferences: []
+  executionOrder: 0
+  icon: {instanceID: 0}
+  userData: 
+  assetBundleName: 
+  assetBundleVariant: 
+AssetOrigin:
+  serializedVersion: 1
+  productId: 200638
+  packageName: CBS - Cross-platform Backend Solution (PlayFab)
+  packageVersion: 1.2.1
+  assetPath: Assets/CBS/Scripts/UI/Lobby/Chat/SelectStickerPopup.cs
+  uploadId: 756895

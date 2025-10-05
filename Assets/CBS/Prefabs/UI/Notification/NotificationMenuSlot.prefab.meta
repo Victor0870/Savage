@@ -1,0 +1,14 @@
+fileFormatVersion: 2
+guid: aa4ac9bdeea6bc644ac4bd5e0d0946da
+PrefabImporter:
+  externalObjects: {}
+  userData: 
+  assetBundleName: 
+  assetBundleVariant: 
+AssetOrigin:
+  serializedVersion: 1
+  productId: 200638
+  packageName: CBS - Cross-platform Backend Solution (PlayFab)
+  packageVersion: 1.2.1
+  assetPath: Assets/CBS/Prefabs/UI/Notification/NotificationMenuSlot.prefab
+  uploadId: 756895

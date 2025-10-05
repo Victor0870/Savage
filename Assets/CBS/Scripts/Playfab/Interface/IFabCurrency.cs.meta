@@ -1,0 +1,18 @@
+fileFormatVersion: 2
+guid: 8aa71ee0f16bc5c4b9ded42f88a0637b
+MonoImporter:
+  externalObjects: {}
+  serializedVersion: 2
+  defaultReferences: []
+  executionOrder: 0
+  icon: {instanceID: 0}
+  userData: 
+  assetBundleName: 
+  assetBundleVariant: 
+AssetOrigin:
+  serializedVersion: 1
+  productId: 200638
+  packageName: CBS - Cross-platform Backend Solution (PlayFab)
+  packageVersion: 1.2.1
+  assetPath: Assets/CBS/Scripts/Playfab/Interface/IFabCurrency.cs
+  uploadId: 756895

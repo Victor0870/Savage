@@ -1,0 +1,14 @@
+fileFormatVersion: 2
+guid: ffced6e8fdf5ce04a83519a160c2a75a
+PrefabImporter:
+  externalObjects: {}
+  userData: 
+  assetBundleName: 
+  assetBundleVariant: 
+AssetOrigin:
+  serializedVersion: 1
+  productId: 200638
+  packageName: CBS - Cross-platform Backend Solution (PlayFab)
+  packageVersion: 1.2.1
+  assetPath: Assets/CBS/Prefabs/UI/Auth/RecoveryForm.prefab
+  uploadId: 756895

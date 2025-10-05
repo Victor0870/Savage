@@ -1,0 +1,14 @@
+fileFormatVersion: 2
+guid: ff6037fafafe96e4c90434cd0f6b57dd
+PrefabImporter:
+  externalObjects: {}
+  userData: 
+  assetBundleName: 
+  assetBundleVariant: 
+AssetOrigin:
+  serializedVersion: 1
+  productId: 200638
+  packageName: CBS - Cross-platform Backend Solution (PlayFab)
+  packageVersion: 1.2.1
+  assetPath: Assets/CBS/Prefabs/UI/Matchmaking/SinglePlayer.prefab
+  uploadId: 756895

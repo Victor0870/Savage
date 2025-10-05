@@ -1,0 +1,18 @@
+fileFormatVersion: 2
+guid: 4a1f1701b0b69f747bb7ed21753eddd5
+MonoImporter:
+  externalObjects: {}
+  serializedVersion: 2
+  defaultReferences: []
+  executionOrder: 0
+  icon: {instanceID: 0}
+  userData: 
+  assetBundleName: 
+  assetBundleVariant: 
+AssetOrigin:
+  serializedVersion: 1
+  productId: 200638
+  packageName: CBS - Cross-platform Backend Solution (PlayFab)
+  packageVersion: 1.2.1
+  assetPath: Assets/CBS/Scripts/Core/Models/Inventory/Results/CBSChangeEquipStateResult.cs
+  uploadId: 756895

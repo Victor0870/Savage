@@ -1,0 +1,14 @@
+fileFormatVersion: 2
+guid: 42262bcd1f37bcb4c977f39fd50437e3
+PrefabImporter:
+  externalObjects: {}
+  userData: 
+  assetBundleName: 
+  assetBundleVariant: 
+AssetOrigin:
+  serializedVersion: 1
+  productId: 200638
+  packageName: CBS - Cross-platform Backend Solution (PlayFab)
+  packageVersion: 1.2.1
+  assetPath: Assets/CBS/Prefabs/UI/Clan/ClanRequestedUser.prefab
+  uploadId: 756895

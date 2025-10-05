@@ -1,0 +1,14 @@
+fileFormatVersion: 2
+guid: b17facd5142de8247a99fea90148b310
+PrefabImporter:
+  externalObjects: {}
+  userData: 
+  assetBundleName: 
+  assetBundleVariant: 
+AssetOrigin:
+  serializedVersion: 1
+  productId: 200638
+  packageName: CBS - Cross-platform Backend Solution (PlayFab)
+  packageVersion: 1.2.1
+  assetPath: Assets/CBS/Prefabs/UI/Clan/ClanScreenLoader.prefab
+  uploadId: 756895

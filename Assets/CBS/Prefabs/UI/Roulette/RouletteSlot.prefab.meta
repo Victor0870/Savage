@@ -1,0 +1,14 @@
+fileFormatVersion: 2
+guid: 1c73d0e49ca40be46a428448171aa817
+PrefabImporter:
+  externalObjects: {}
+  userData: 
+  assetBundleName: 
+  assetBundleVariant: 
+AssetOrigin:
+  serializedVersion: 1
+  productId: 200638
+  packageName: CBS - Cross-platform Backend Solution (PlayFab)
+  packageVersion: 1.2.1
+  assetPath: Assets/CBS/Prefabs/UI/Roulette/RouletteSlot.prefab
+  uploadId: 756895

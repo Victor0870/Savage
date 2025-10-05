@@ -1,0 +1,15 @@
+fileFormatVersion: 2
+guid: db1cf33ffe216d44ab02d98e5a47bab4
+NativeFormatImporter:
+  externalObjects: {}
+  mainObjectFileID: 0
+  userData: 
+  assetBundleName: 
+  assetBundleVariant: 
+AssetOrigin:
+  serializedVersion: 1
+  productId: 200638
+  packageName: CBS - Cross-platform Backend Solution (PlayFab)
+  packageVersion: 1.2.1
+  assetPath: Assets/CBS/Resources/Scriptable/EventsPrefabs.asset
+  uploadId: 756895

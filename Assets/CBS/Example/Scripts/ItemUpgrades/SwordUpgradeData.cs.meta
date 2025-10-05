@@ -1,0 +1,18 @@
+fileFormatVersion: 2
+guid: 71e03d29e566ac546a2b2cade5fb3a98
+MonoImporter:
+  externalObjects: {}
+  serializedVersion: 2
+  defaultReferences: []
+  executionOrder: 0
+  icon: {instanceID: 0}
+  userData: 
+  assetBundleName: 
+  assetBundleVariant: 
+AssetOrigin:
+  serializedVersion: 1
+  productId: 200638
+  packageName: CBS - Cross-platform Backend Solution (PlayFab)
+  packageVersion: 1.2.1
+  assetPath: Assets/CBS/Example/Scripts/ItemUpgrades/SwordUpgradeData.cs
+  uploadId: 756895

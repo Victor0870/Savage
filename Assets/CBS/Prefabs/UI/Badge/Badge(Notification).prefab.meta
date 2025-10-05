@@ -1,0 +1,14 @@
+fileFormatVersion: 2
+guid: d71b92d173afa0c4ca076270e0994188
+PrefabImporter:
+  externalObjects: {}
+  userData: 
+  assetBundleName: 
+  assetBundleVariant: 
+AssetOrigin:
+  serializedVersion: 1
+  productId: 200638
+  packageName: CBS - Cross-platform Backend Solution (PlayFab)
+  packageVersion: 1.2.1
+  assetPath: Assets/CBS/Prefabs/UI/Badge/Badge(Notification).prefab
+  uploadId: 756895

@@ -1,0 +1,10 @@
+fileFormatVersion: 2
+guid: 81d97035c94746ba977941564c3400fb
+timeCreated: 1709143314
+AssetOrigin:
+  serializedVersion: 1
+  productId: 200638
+  packageName: CBS - Cross-platform Backend Solution (PlayFab)
+  packageVersion: 1.2.1
+  assetPath: Assets/CBS/Scripts/Core/SharedData/Lootbox/DropCurrency.cs
+  uploadId: 756895

@@ -1,0 +1,18 @@
+fileFormatVersion: 2
+guid: ffe93055187c9794f80a23e031e0348c
+MonoImporter:
+  externalObjects: {}
+  serializedVersion: 2
+  defaultReferences: []
+  executionOrder: 0
+  icon: {instanceID: 0}
+  userData: 
+  assetBundleName: 
+  assetBundleVariant: 
+AssetOrigin:
+  serializedVersion: 1
+  productId: 200638
+  packageName: CBS - Cross-platform Backend Solution (PlayFab)
+  packageVersion: 1.2.1
+  assetPath: Assets/CBS/Scripts/Core/Models/Leaderboards/Requests/CBSGetLeaderboardRequest.cs
+  uploadId: 756895

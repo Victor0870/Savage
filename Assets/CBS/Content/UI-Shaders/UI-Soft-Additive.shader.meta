@@ -1,0 +1,16 @@
+fileFormatVersion: 2
+guid: 54879e66fd5d8154484ab414b1f976ac
+ShaderImporter:
+  externalObjects: {}
+  defaultTextures: []
+  nonModifiableTextures: []
+  userData: 
+  assetBundleName: 
+  assetBundleVariant: 
+AssetOrigin:
+  serializedVersion: 1
+  productId: 200638
+  packageName: CBS - Cross-platform Backend Solution (PlayFab)
+  packageVersion: 1.2.1
+  assetPath: Assets/CBS/Content/UI-Shaders/UI-Soft-Additive.shader
+  uploadId: 756895

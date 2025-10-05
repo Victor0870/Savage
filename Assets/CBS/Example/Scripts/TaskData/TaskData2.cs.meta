@@ -1,0 +1,18 @@
+fileFormatVersion: 2
+guid: c7b3a9fdd2d48a04bbd4548a2b343a3b
+MonoImporter:
+  externalObjects: {}
+  serializedVersion: 2
+  defaultReferences: []
+  executionOrder: 0
+  icon: {instanceID: 0}
+  userData: 
+  assetBundleName: 
+  assetBundleVariant: 
+AssetOrigin:
+  serializedVersion: 1
+  productId: 200638
+  packageName: CBS - Cross-platform Backend Solution (PlayFab)
+  packageVersion: 1.2.1
+  assetPath: Assets/CBS/Example/Scripts/TaskData/TaskData2.cs
+  uploadId: 756895

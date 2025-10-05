@@ -1,0 +1,14 @@
+fileFormatVersion: 2
+guid: c415778e3fb592f45ad64be184f1eb1f
+PrefabImporter:
+  externalObjects: {}
+  userData: 
+  assetBundleName: 
+  assetBundleVariant: 
+AssetOrigin:
+  serializedVersion: 1
+  productId: 200638
+  packageName: CBS - Cross-platform Backend Solution (PlayFab)
+  packageVersion: 1.2.1
+  assetPath: Assets/CBS/Prefabs/UI/Inventory/InventoryWindow.prefab
+  uploadId: 756895

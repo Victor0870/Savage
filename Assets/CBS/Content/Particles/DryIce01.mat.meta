@@ -1,0 +1,11 @@
+fileFormatVersion: 2
+guid: 4e2da82b3e2bf2341a55c06a4ac751af
+NativeFormatImporter:
+  userData: 
+AssetOrigin:
+  serializedVersion: 1
+  productId: 200638
+  packageName: CBS - Cross-platform Backend Solution (PlayFab)
+  packageVersion: 1.2.1
+  assetPath: Assets/CBS/Content/Particles/DryIce01.mat
+  uploadId: 756895

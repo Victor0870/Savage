@@ -1,0 +1,14 @@
+fileFormatVersion: 2
+guid: a3e753667564dbe499f7eea69efea391
+PrefabImporter:
+  externalObjects: {}
+  userData: 
+  assetBundleName: 
+  assetBundleVariant: 
+AssetOrigin:
+  serializedVersion: 1
+  productId: 200638
+  packageName: CBS - Cross-platform Backend Solution (PlayFab)
+  packageVersion: 1.2.1
+  assetPath: Assets/CBS/Prefabs/UI/Badge/Badge(Clan).prefab
+  uploadId: 756895

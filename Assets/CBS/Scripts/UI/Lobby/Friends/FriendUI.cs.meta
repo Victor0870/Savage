@@ -1,0 +1,18 @@
+fileFormatVersion: 2
+guid: f63e96324cf40964eaf1f937de6bedde
+MonoImporter:
+  externalObjects: {}
+  serializedVersion: 2
+  defaultReferences: []
+  executionOrder: 0
+  icon: {instanceID: 0}
+  userData: 
+  assetBundleName: 
+  assetBundleVariant: 
+AssetOrigin:
+  serializedVersion: 1
+  productId: 200638
+  packageName: CBS - Cross-platform Backend Solution (PlayFab)
+  packageVersion: 1.2.1
+  assetPath: Assets/CBS/Scripts/UI/Lobby/Friends/FriendUI.cs
+  uploadId: 756895

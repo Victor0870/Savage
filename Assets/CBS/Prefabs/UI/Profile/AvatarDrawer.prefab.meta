@@ -1,0 +1,14 @@
+fileFormatVersion: 2
+guid: bc8cfb67f6bb55447930bec5fcea8d01
+PrefabImporter:
+  externalObjects: {}
+  userData: 
+  assetBundleName: 
+  assetBundleVariant: 
+AssetOrigin:
+  serializedVersion: 1
+  productId: 200638
+  packageName: CBS - Cross-platform Backend Solution (PlayFab)
+  packageVersion: 1.2.1
+  assetPath: Assets/CBS/Prefabs/UI/Profile/AvatarDrawer.prefab
+  uploadId: 756895

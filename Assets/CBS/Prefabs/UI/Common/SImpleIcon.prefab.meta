@@ -1,0 +1,14 @@
+fileFormatVersion: 2
+guid: 6953330d27a5e6740945383abd7ef192
+PrefabImporter:
+  externalObjects: {}
+  userData: 
+  assetBundleName: 
+  assetBundleVariant: 
+AssetOrigin:
+  serializedVersion: 1
+  productId: 200638
+  packageName: CBS - Cross-platform Backend Solution (PlayFab)
+  packageVersion: 1.2.1
+  assetPath: Assets/CBS/Prefabs/UI/Common/SImpleIcon.prefab
+  uploadId: 756895

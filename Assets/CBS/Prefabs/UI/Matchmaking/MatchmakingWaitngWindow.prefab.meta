@@ -1,0 +1,14 @@
+fileFormatVersion: 2
+guid: 40e3e99f9d285d2449972c860c155dd8
+PrefabImporter:
+  externalObjects: {}
+  userData: 
+  assetBundleName: 
+  assetBundleVariant: 
+AssetOrigin:
+  serializedVersion: 1
+  productId: 200638
+  packageName: CBS - Cross-platform Backend Solution (PlayFab)
+  packageVersion: 1.2.1
+  assetPath: Assets/CBS/Prefabs/UI/Matchmaking/MatchmakingWaitngWindow.prefab
+  uploadId: 756895

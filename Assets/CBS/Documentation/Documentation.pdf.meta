@@ -1,0 +1,14 @@
+fileFormatVersion: 2
+guid: e443bb54798bcbb44931bda6510fc0e6
+DefaultImporter:
+  externalObjects: {}
+  userData: 
+  assetBundleName: 
+  assetBundleVariant: 
+AssetOrigin:
+  serializedVersion: 1
+  productId: 200638
+  packageName: CBS - Cross-platform Backend Solution (PlayFab)
+  packageVersion: 1.2.1
+  assetPath: Assets/CBS/Documentation/Documentation.pdf
+  uploadId: 756895

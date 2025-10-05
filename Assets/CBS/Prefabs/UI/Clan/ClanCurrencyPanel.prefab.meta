@@ -1,0 +1,14 @@
+fileFormatVersion: 2
+guid: 67d651405e1fcd44daac23bc2814d081
+PrefabImporter:
+  externalObjects: {}
+  userData: 
+  assetBundleName: 
+  assetBundleVariant: 
+AssetOrigin:
+  serializedVersion: 1
+  productId: 200638
+  packageName: CBS - Cross-platform Backend Solution (PlayFab)
+  packageVersion: 1.2.1
+  assetPath: Assets/CBS/Prefabs/UI/Clan/ClanCurrencyPanel.prefab
+  uploadId: 756895

@@ -1,0 +1,18 @@
+fileFormatVersion: 2
+guid: 2d5557e66ae63bd47b76566e64ab3b4e
+MonoImporter:
+  externalObjects: {}
+  serializedVersion: 2
+  defaultReferences: []
+  executionOrder: 0
+  icon: {instanceID: 0}
+  userData: 
+  assetBundleName: 
+  assetBundleVariant: 
+AssetOrigin:
+  serializedVersion: 1
+  productId: 200638
+  packageName: CBS - Cross-platform Backend Solution (PlayFab)
+  packageVersion: 1.2.1
+  assetPath: Assets/CBS/Scripts/UI/Lobby/Currency/CurrencyShop.cs
+  uploadId: 756895

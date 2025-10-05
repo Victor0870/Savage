@@ -1,0 +1,18 @@
+fileFormatVersion: 2
+guid: 386cc4ea47d3b4c4aafd633cd06bacaa
+MonoImporter:
+  externalObjects: {}
+  serializedVersion: 2
+  defaultReferences: []
+  executionOrder: 0
+  icon: {instanceID: 0}
+  userData: 
+  assetBundleName: 
+  assetBundleVariant: 
+AssetOrigin:
+  serializedVersion: 1
+  productId: 200638
+  packageName: CBS - Cross-platform Backend Solution (PlayFab)
+  packageVersion: 1.2.1
+  assetPath: Assets/CBS/Scripts/Core/Models/Profile/Result/CBSGrantAvatarResult.cs
+  uploadId: 756895

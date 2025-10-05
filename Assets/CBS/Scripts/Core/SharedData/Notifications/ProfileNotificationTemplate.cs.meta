@@ -1,0 +1,10 @@
+fileFormatVersion: 2
+guid: 89286ce4ec70428a9810676c16304786
+timeCreated: 1689006883
+AssetOrigin:
+  serializedVersion: 1
+  productId: 200638
+  packageName: CBS - Cross-platform Backend Solution (PlayFab)
+  packageVersion: 1.2.1
+  assetPath: Assets/CBS/Scripts/Core/SharedData/Notifications/ProfileNotificationTemplate.cs
+  uploadId: 756895

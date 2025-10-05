@@ -1,0 +1,10 @@
+fileFormatVersion: 2
+guid: 7ad8ef4fcc8543dc8424ee9a8ff3830e
+timeCreated: 1709477728
+AssetOrigin:
+  serializedVersion: 1
+  productId: 200638
+  packageName: CBS - Cross-platform Backend Solution (PlayFab)
+  packageVersion: 1.2.1
+  assetPath: Assets/CBS/Scripts/Core/Models/Inventory/Results/CBSUnlockLootboxTimerResult.cs
+  uploadId: 756895

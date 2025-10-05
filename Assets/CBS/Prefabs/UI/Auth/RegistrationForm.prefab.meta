@@ -1,0 +1,14 @@
+fileFormatVersion: 2
+guid: eb240c41bc969344182b8a3ee11887e2
+PrefabImporter:
+  externalObjects: {}
+  userData: 
+  assetBundleName: 
+  assetBundleVariant: 
+AssetOrigin:
+  serializedVersion: 1
+  productId: 200638
+  packageName: CBS - Cross-platform Backend Solution (PlayFab)
+  packageVersion: 1.2.1
+  assetPath: Assets/CBS/Prefabs/UI/Auth/RegistrationForm.prefab
+  uploadId: 756895

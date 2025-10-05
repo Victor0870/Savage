@@ -1,0 +1,15 @@
+fileFormatVersion: 2
+guid: 963b7af41268e0b47ae7e681b35a969b
+NativeFormatImporter:
+  externalObjects: {}
+  mainObjectFileID: 0
+  userData: 
+  assetBundleName: 
+  assetBundleVariant: 
+AssetOrigin:
+  serializedVersion: 1
+  productId: 200638
+  packageName: CBS - Cross-platform Backend Solution (PlayFab)
+  packageVersion: 1.2.1
+  assetPath: Assets/CBS/Resources/Scriptable/InventoryPrefabs.asset
+  uploadId: 756895

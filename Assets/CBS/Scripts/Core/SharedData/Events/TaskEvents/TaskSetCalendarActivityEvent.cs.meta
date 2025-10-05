@@ -1,0 +1,18 @@
+fileFormatVersion: 2
+guid: a775d5e55e9471244823fc37fa5928b8
+MonoImporter:
+  externalObjects: {}
+  serializedVersion: 2
+  defaultReferences: []
+  executionOrder: 0
+  icon: {instanceID: 0}
+  userData: 
+  assetBundleName: 
+  assetBundleVariant: 
+AssetOrigin:
+  serializedVersion: 1
+  productId: 200638
+  packageName: CBS - Cross-platform Backend Solution (PlayFab)
+  packageVersion: 1.2.1
+  assetPath: Assets/CBS/Scripts/Core/SharedData/Events/TaskEvents/TaskSetCalendarActivityEvent.cs
+  uploadId: 756895

@@ -1,0 +1,24 @@
+%YAML 1.1
+%TAG !u! tag:unity3d.com,2011:
+--- !u!114 &11400000
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 0}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: 5d0199c11aa6f514784c5c69cd8378d8, type: 3}
+  m_Name: PlayFabEditorPrefsSO
+  m_EditorClassIdentifier: 
+  DevAccountEmail: victory.studio.2024@gmail.com
+  DevAccountToken: jcss6wf6c8u7tjteoyy3kp64jdx6pfj3ybx1cg31cuydui84pj4ybg1ibo493swdmhb49i486k5peuznfxderx3dnyf7q4g8ihhp4eiwnmq7zxadjqo7dam67zzgqnxbiydctbrmwso9a457iu7p97qhwjajz3bf3ronmajapinbc6zyigd1frattdfcchmh7aubte4k
+  AadAuthorization: 
+  SelectedStudio: Victory Game
+  SdkPath: Assets/PlayFabSDK
+  EdExPath: 
+  LocalCloudScriptPath: 
+  PanelIsShown: 0
+  curMainMenuIdx: 1
+  curSubMenuIdx: 0

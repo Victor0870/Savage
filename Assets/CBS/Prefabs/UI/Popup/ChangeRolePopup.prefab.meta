@@ -1,0 +1,14 @@
+fileFormatVersion: 2
+guid: cd8975c4af0481f4db8da527af67f8a7
+PrefabImporter:
+  externalObjects: {}
+  userData: 
+  assetBundleName: 
+  assetBundleVariant: 
+AssetOrigin:
+  serializedVersion: 1
+  productId: 200638
+  packageName: CBS - Cross-platform Backend Solution (PlayFab)
+  packageVersion: 1.2.1
+  assetPath: Assets/CBS/Prefabs/UI/Popup/ChangeRolePopup.prefab
+  uploadId: 756895

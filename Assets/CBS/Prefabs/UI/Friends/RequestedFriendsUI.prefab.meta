@@ -1,0 +1,14 @@
+fileFormatVersion: 2
+guid: 279ee08ba1e0bb04a886864cc524d5dd
+PrefabImporter:
+  externalObjects: {}
+  userData: 
+  assetBundleName: 
+  assetBundleVariant: 
+AssetOrigin:
+  serializedVersion: 1
+  productId: 200638
+  packageName: CBS - Cross-platform Backend Solution (PlayFab)
+  packageVersion: 1.2.1
+  assetPath: Assets/CBS/Prefabs/UI/Friends/RequestedFriendsUI.prefab
+  uploadId: 756895

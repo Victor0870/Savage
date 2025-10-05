@@ -1,0 +1,16 @@
+fileFormatVersion: 2
+guid: 0cc9d8105c383db47b21e2a7a99a72cd
+ShaderImporter:
+  externalObjects: {}
+  defaultTextures: []
+  nonModifiableTextures: []
+  userData: 
+  assetBundleName: 
+  assetBundleVariant: 
+AssetOrigin:
+  serializedVersion: 1
+  productId: 200638
+  packageName: CBS - Cross-platform Backend Solution (PlayFab)
+  packageVersion: 1.2.1
+  assetPath: Assets/CBS/Content/UI-Shaders/UI-Hidden.shader
+  uploadId: 756895

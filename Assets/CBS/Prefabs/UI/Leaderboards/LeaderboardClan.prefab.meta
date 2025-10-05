@@ -1,0 +1,14 @@
+fileFormatVersion: 2
+guid: b1758d037c0486541b92b563e400b7b4
+PrefabImporter:
+  externalObjects: {}
+  userData: 
+  assetBundleName: 
+  assetBundleVariant: 
+AssetOrigin:
+  serializedVersion: 1
+  productId: 200638
+  packageName: CBS - Cross-platform Backend Solution (PlayFab)
+  packageVersion: 1.2.1
+  assetPath: Assets/CBS/Prefabs/UI/Leaderboards/LeaderboardClan.prefab
+  uploadId: 756895

@@ -1,0 +1,10 @@
+﻿fileFormatVersion: 2
+guid: 624b56056f9b45c8a9d2ce22dc38a7f2
+timeCreated: 1698157353
+AssetOrigin:
+  serializedVersion: 1
+  productId: 200638
+  packageName: CBS - Cross-platform Backend Solution (PlayFab)
+  packageVersion: 1.2.1
+  assetPath: Assets/CBS/Scripts/Core/Models/Auth/Requests/CBSUserNameLoginRequest.cs
+  uploadId: 756895

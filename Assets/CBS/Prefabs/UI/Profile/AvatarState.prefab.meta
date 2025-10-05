@@ -1,0 +1,14 @@
+fileFormatVersion: 2
+guid: 963ebc25165fed54888e8d24c4ee4d18
+PrefabImporter:
+  externalObjects: {}
+  userData: 
+  assetBundleName: 
+  assetBundleVariant: 
+AssetOrigin:
+  serializedVersion: 1
+  productId: 200638
+  packageName: CBS - Cross-platform Backend Solution (PlayFab)
+  packageVersion: 1.2.1
+  assetPath: Assets/CBS/Prefabs/UI/Profile/AvatarState.prefab
+  uploadId: 756895

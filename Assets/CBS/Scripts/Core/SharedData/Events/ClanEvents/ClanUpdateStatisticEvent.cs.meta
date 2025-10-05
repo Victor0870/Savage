@@ -1,0 +1,18 @@
+fileFormatVersion: 2
+guid: c21adebe90a9c214684ac8d8c60ff01e
+MonoImporter:
+  externalObjects: {}
+  serializedVersion: 2
+  defaultReferences: []
+  executionOrder: 0
+  icon: {instanceID: 0}
+  userData: 
+  assetBundleName: 
+  assetBundleVariant: 
+AssetOrigin:
+  serializedVersion: 1
+  productId: 200638
+  packageName: CBS - Cross-platform Backend Solution (PlayFab)
+  packageVersion: 1.2.1
+  assetPath: Assets/CBS/Scripts/Core/SharedData/Events/ClanEvents/ClanUpdateStatisticEvent.cs
+  uploadId: 756895

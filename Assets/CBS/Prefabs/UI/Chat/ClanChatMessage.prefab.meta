@@ -1,0 +1,14 @@
+fileFormatVersion: 2
+guid: 6b1a2d5426a234947b8efc93a671ba7a
+PrefabImporter:
+  externalObjects: {}
+  userData: 
+  assetBundleName: 
+  assetBundleVariant: 
+AssetOrigin:
+  serializedVersion: 1
+  productId: 200638
+  packageName: CBS - Cross-platform Backend Solution (PlayFab)
+  packageVersion: 1.2.1
+  assetPath: Assets/CBS/Prefabs/UI/Chat/ClanChatMessage.prefab
+  uploadId: 756895

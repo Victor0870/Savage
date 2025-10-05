@@ -1,0 +1,25 @@
+%YAML 1.1
+%TAG !u! tag:unity3d.com,2011:
+--- !u!114 &11400000
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 0}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: e675658e5d57a9046b3324c0c946a620, type: 3}
+  m_Name: Stage 6
+  m_EditorClassIdentifier: 
+  icon: {fileID: 21300000, guid: 03cf51eccb311374cb413aae698f8e69, type: 3}
+  displayName: VERDANT PLAINS
+  timeline: {fileID: 11400000, guid: e12458d3267294941aa93425af02b7f6, type: 2}
+  stageType: 0
+  stageFieldData: {fileID: 11400000, guid: 342ee8b94a6269c45b42c826ae814519, type: 2}
+  spawnProp: 0
+  removePropFromBossfight: 1
+  spotlightColor: {r: 0.7921569, g: 0.93333334, b: 1, a: 0.24705882}
+  spotlightShadowColor: {r: 0.011764706, g: 0.09411765, b: 0.2901961, a: 0.95686275}
+  enemyDamage: 3
+  enemyHP: 1

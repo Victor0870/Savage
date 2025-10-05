@@ -1,0 +1,15 @@
+fileFormatVersion: 2
+guid: 92526991fda792f46b3707f8e63315c6
+NativeFormatImporter:
+  externalObjects: {}
+  mainObjectFileID: 0
+  userData: 
+  assetBundleName: 
+  assetBundleVariant: 
+AssetOrigin:
+  serializedVersion: 1
+  productId: 200638
+  packageName: CBS - Cross-platform Backend Solution (PlayFab)
+  packageVersion: 1.2.1
+  assetPath: Assets/CBS/Resources/Scriptable/TournamentPrefabs.asset
+  uploadId: 756895

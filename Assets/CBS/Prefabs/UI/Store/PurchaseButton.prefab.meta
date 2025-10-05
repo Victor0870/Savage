@@ -1,0 +1,14 @@
+fileFormatVersion: 2
+guid: 0c36113c87d8116448dd81439d1d5d13
+PrefabImporter:
+  externalObjects: {}
+  userData: 
+  assetBundleName: 
+  assetBundleVariant: 
+AssetOrigin:
+  serializedVersion: 1
+  productId: 200638
+  packageName: CBS - Cross-platform Backend Solution (PlayFab)
+  packageVersion: 1.2.1
+  assetPath: Assets/CBS/Prefabs/UI/Store/PurchaseButton.prefab
+  uploadId: 756895

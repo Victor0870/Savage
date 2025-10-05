@@ -1,0 +1,14 @@
+fileFormatVersion: 2
+guid: 0848b54c5a7912c4492f06ce457a57f9
+DefaultImporter:
+  externalObjects: {}
+  userData: 
+  assetBundleName: 
+  assetBundleVariant: 
+AssetOrigin:
+  serializedVersion: 1
+  productId: 200638
+  packageName: CBS - Cross-platform Backend Solution (PlayFab)
+  packageVersion: 1.2.1
+  assetPath: Assets/CBS/Example/Scenes/Game.unity
+  uploadId: 756895

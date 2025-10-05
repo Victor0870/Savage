@@ -1,0 +1,14 @@
+fileFormatVersion: 2
+guid: 7f224956505e1bd42afbbb293fb0b2f4
+PrefabImporter:
+  externalObjects: {}
+  userData: 
+  assetBundleName: 
+  assetBundleVariant: 
+AssetOrigin:
+  serializedVersion: 1
+  productId: 200638
+  packageName: CBS - Cross-platform Backend Solution (PlayFab)
+  packageVersion: 1.2.1
+  assetPath: Assets/CBS/Prefabs/UI/ProfileTasks/TaskSlot.prefab
+  uploadId: 756895

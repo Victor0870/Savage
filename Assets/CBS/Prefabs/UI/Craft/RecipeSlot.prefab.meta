@@ -1,0 +1,14 @@
+fileFormatVersion: 2
+guid: f926e16e5dd59e5429d339aed034caca
+PrefabImporter:
+  externalObjects: {}
+  userData: 
+  assetBundleName: 
+  assetBundleVariant: 
+AssetOrigin:
+  serializedVersion: 1
+  productId: 200638
+  packageName: CBS - Cross-platform Backend Solution (PlayFab)
+  packageVersion: 1.2.1
+  assetPath: Assets/CBS/Prefabs/UI/Craft/RecipeSlot.prefab
+  uploadId: 756895

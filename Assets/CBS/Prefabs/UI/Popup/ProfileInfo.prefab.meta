@@ -1,0 +1,14 @@
+fileFormatVersion: 2
+guid: 5b7d9ae9d3c7af44c9fd6b8f8136d41e
+PrefabImporter:
+  externalObjects: {}
+  userData: 
+  assetBundleName: 
+  assetBundleVariant: 
+AssetOrigin:
+  serializedVersion: 1
+  productId: 200638
+  packageName: CBS - Cross-platform Backend Solution (PlayFab)
+  packageVersion: 1.2.1
+  assetPath: Assets/CBS/Prefabs/UI/Popup/ProfileInfo.prefab
+  uploadId: 756895

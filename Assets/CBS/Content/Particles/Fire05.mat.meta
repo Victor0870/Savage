@@ -1,0 +1,11 @@
+fileFormatVersion: 2
+guid: 024e220877db87f41b71479bad894530
+NativeFormatImporter:
+  userData: 
+AssetOrigin:
+  serializedVersion: 1
+  productId: 200638
+  packageName: CBS - Cross-platform Backend Solution (PlayFab)
+  packageVersion: 1.2.1
+  assetPath: Assets/CBS/Content/Particles/Fire05.mat
+  uploadId: 756895

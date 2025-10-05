@@ -1,0 +1,15 @@
+fileFormatVersion: 2
+guid: 2f4abceff1bccd541b9dab479ced8160
+NativeFormatImporter:
+  externalObjects: {}
+  mainObjectFileID: 0
+  userData: 
+  assetBundleName: 
+  assetBundleVariant: 
+AssetOrigin:
+  serializedVersion: 1
+  productId: 200638
+  packageName: CBS - Cross-platform Backend Solution (PlayFab)
+  packageVersion: 1.2.1
+  assetPath: Assets/CBS/Example/Animation/Shine.controller
+  uploadId: 756895

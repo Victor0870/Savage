@@ -1,0 +1,15 @@
+fileFormatVersion: 2
+guid: cfa50bc802fc514499fa12fd869631e1
+NativeFormatImporter:
+  externalObjects: {}
+  mainObjectFileID: 0
+  userData: 
+  assetBundleName: 
+  assetBundleVariant: 
+AssetOrigin:
+  serializedVersion: 1
+  productId: 200638
+  packageName: CBS - Cross-platform Backend Solution (PlayFab)
+  packageVersion: 1.2.1
+  assetPath: Assets/CBS/Resources/Scriptable/ProfileTasksPrefabs.asset
+  uploadId: 756895

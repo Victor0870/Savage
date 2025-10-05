@@ -1,0 +1,14 @@
+fileFormatVersion: 2
+guid: be0ed8b2e785d674c8c0bfb291fb8186
+PrefabImporter:
+  externalObjects: {}
+  userData: 
+  assetBundleName: 
+  assetBundleVariant: 
+AssetOrigin:
+  serializedVersion: 1
+  productId: 200638
+  packageName: CBS - Cross-platform Backend Solution (PlayFab)
+  packageVersion: 1.2.1
+  assetPath: Assets/CBS/Prefabs/UI/LootBox/LootBoxResult.prefab
+  uploadId: 756895

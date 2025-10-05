@@ -1,0 +1,14 @@
+fileFormatVersion: 2
+guid: 100030577a062544ab61fa4dd4385a85
+PrefabImporter:
+  externalObjects: {}
+  userData: 
+  assetBundleName: 
+  assetBundleVariant: 
+AssetOrigin:
+  serializedVersion: 1
+  productId: 200638
+  packageName: CBS - Cross-platform Backend Solution (PlayFab)
+  packageVersion: 1.2.1
+  assetPath: Assets/CBS/Prefabs/UI/Popup/EditTextPopup.prefab
+  uploadId: 756895

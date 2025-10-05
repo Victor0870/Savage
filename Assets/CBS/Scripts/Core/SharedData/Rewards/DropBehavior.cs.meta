@@ -1,0 +1,10 @@
+﻿fileFormatVersion: 2
+guid: 802c4a7bf9b54d78ab04fdba07217589
+timeCreated: 1700060808
+AssetOrigin:
+  serializedVersion: 1
+  productId: 200638
+  packageName: CBS - Cross-platform Backend Solution (PlayFab)
+  packageVersion: 1.2.1
+  assetPath: Assets/CBS/Scripts/Core/SharedData/Rewards/DropBehavior.cs
+  uploadId: 756895

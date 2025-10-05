@@ -1,0 +1,15 @@
+fileFormatVersion: 2
+guid: 1ec5216503fb57245af6044287f3a4d5
+NativeFormatImporter:
+  externalObjects: {}
+  mainObjectFileID: 0
+  userData: 
+  assetBundleName: 
+  assetBundleVariant: 
+AssetOrigin:
+  serializedVersion: 1
+  productId: 200638
+  packageName: CBS - Cross-platform Backend Solution (PlayFab)
+  packageVersion: 1.2.1
+  assetPath: Assets/CBS/Resources/Scriptable/NotificationPrefabs.asset
+  uploadId: 756895
