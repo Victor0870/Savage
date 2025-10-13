@@ -143,6 +143,8 @@ PlayerSettings:
   bundleVersion: 1.1.6
   preloadedAssets:
   - {fileID: -944628639613478452, guid: e3d7cb309cd97cb4998aceb684f33068, type: 3}
+  - {fileID: 11400000, guid: 9ce986bb73889ca4aa170dad92af628b, type: 2}
+  - {fileID: 4408958613215089370, guid: bf0d314008b7fc747837050f62af1abe, type: 2}
   metroInputSource: 0
   wsaTransparentSwapchain: 0
   m_HolographicPauseOnTrackingLoss: 1
@@ -830,6 +832,7 @@ PlayerSettings:
   webWasm2023: 0
   scriptingDefineSymbols:
     Android: ENABLE_PLAYFABSERVER_API;ENABLE_PLAYFABADMIN_API
+    Standalone: ENABLE_PLAYFABSERVER_API;ENABLE_PLAYFABADMIN_API
   additionalCompilerArguments: {}
   platformArchitecture: {}
   scriptingBackend:

@@ -4,13 +4,14 @@ using System;
 using System.Collections;
 using UnityEngine;
 using UnityEngine.UI;
+using TMPro;
 
 namespace CBS.UI
 {
     public class CurrencyRechargeTimer : MonoBehaviour
     {
         [SerializeField]
-        private Text TimerLabel;
+        private TMP_Text TimerLabel;
 
         private CBSCurrency Currency { get; set; }
 

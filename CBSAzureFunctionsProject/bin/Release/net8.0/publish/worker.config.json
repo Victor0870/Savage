@@ -1,0 +1,10 @@
+{
+  "description": {
+    "language": "dotnet-isolated",
+    "extensions": [ ".dll" ],
+    "defaultExecutablePath": "dotnet",
+    "defaultWorkerPath": "CBS_Azure_Functions.dll",
+    "workerIndexing": "true",
+    "canUsePlaceholder": true
+  }
+}

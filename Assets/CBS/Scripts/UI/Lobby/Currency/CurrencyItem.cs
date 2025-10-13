@@ -2,13 +2,14 @@
 using CBS.Scriptable;
 using UnityEngine;
 using UnityEngine.UI;
+using TMPro;
 
 namespace CBS.UI
 {
     public class CurrencyItem : MonoBehaviour
     {
         [SerializeField]
-        private Text ValueTitle;
+        private TMP_Text ValueTitle;
         [SerializeField]
         private Image IconImage;
         [SerializeField]

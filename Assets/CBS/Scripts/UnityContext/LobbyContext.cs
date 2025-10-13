@@ -15,7 +15,7 @@ namespace CBS.Context
         private CommonPrefabs CommonPrefabs { get; set; }
         private CurrencyPrefabs CurrencyPrefabs { get; set; }
 
-        private IAuth CBSAuth { get; set; }
+        private IAuth CBSAuth;
 
         private void Start()
         {
@@ -38,8 +38,8 @@ namespace CBS.Context
             var panelPrefab = CommonPrefabs.IconsPanel;
             UIView.ShowWindow(panelPrefab);
             // show profile icon
-            var profilePrefab = ProfilePrefabs.ProfileIcon;
-            UIView.ShowWindow(profilePrefab);
+            //var profilePrefab = ProfilePrefabs.ProfileIcon;
+           // UIView.ShowWindow(profilePrefab);
             // show currencies
             var currencyPrefab = CurrencyPrefabs.CurrencyPanel;
             UIView.ShowWindow(currencyPrefab);

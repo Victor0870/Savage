@@ -1,13 +1,19 @@
 ﻿using CBS.Scriptable;
 using UnityEngine;
 using UnityEngine.SceneManagement;
+using System.Collections;
 
 namespace CBS.UI
 {
     public class IconsPanel : MonoBehaviour
     {
+        // Giữ lại GameScene để gán tên cảnh trong Inspector
         [SerializeField]
         private string GameScene;
+
+        // -----------------------------------------------------
+        // CÁC HÀM SHOW (GIỮ NGUYÊN)
+        // -----------------------------------------------------
 
         public void ShowStore()
         {
@@ -60,7 +66,7 @@ namespace CBS.UI
 
         public void ShowTournament()
         {
-
+            // Logic cho Tournament
         }
 
         public void ShowDailyBonus()
@@ -119,9 +125,28 @@ namespace CBS.UI
             UIView.ShowWindow(eventsWindow);
         }
 
+        // -----------------------------------------------------
+        // HÀM TẢI GAME (GỌI TỪ SỰ KIỆN UI)
+        // -----------------------------------------------------
+
+        // Hàm này được gọi khi người dùng nhấn nút "Start Game"
         public void LoadGame()
         {
-            SceneManager.LoadScene(GameScene);
+            // ⭐️ Gọi hàm static từ SceneLoader, truyền tên cảnh cần tải (GameScene)
+            if (SceneLoader.Instance != null)
+            {
+                SceneLoader.LoadGameScene(GameScene);
+            }
+            else
+            {
+                Debug.LogError("SceneLoader chưa được khởi tạo. Không thể tải cảnh bất đồng bộ.");
+
+                // Nếu không tìm thấy SceneLoader, fallback về tải cảnh đồng bộ (Có thể gây giật lag)
+                // SceneManager.LoadScene(GameScene);
+            }
         }
+
+        // ⭐️ ĐÃ XÓA: instance, Awake(), LoadGame (static), GameLoadingCoroutine,
+        // LoadAsyncScene, UnloadAsyncScene để IconsPanel có thể bị hủy an toàn.
     }
 }

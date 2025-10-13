@@ -1,0 +1,21 @@
+%YAML 1.1
+%TAG !u! tag:unity3d.com,2011:
+--- !u!114 &11400000
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 0}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: f682705afe6225146a12e4d27ddef097, type: 3}
+  m_Name: CurrencyIcons
+  m_EditorClassIdentifier: 
+  AllSprites:
+  - ID: EN
+    Sprite: {fileID: 21300000, guid: d45d625dc0b224d13a5f113decd68616, type: 3}
+  - ID: GE
+    Sprite: {fileID: 21300000, guid: 7bd1411e323a44d33980d21f64f15eaf, type: 3}
+  - ID: GD
+    Sprite: {fileID: 21300000, guid: 712480090c6d5403dae618c8b9f849b6, type: 3}
