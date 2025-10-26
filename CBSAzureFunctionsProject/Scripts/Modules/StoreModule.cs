@@ -211,7 +211,13 @@ namespace CBS
                 LoadStatistics = true,
             };
             var profileResult = await TableProfileAssistant.GetProfileDetailAsync(profileID, constraints);
-            var profileDetail = profileResult.Error == null ? profileResult.Result : new ProfileEntity{ProfileID = profileID};
+            var profileDetail = profileResult.Error == null ? profileResult.Result : new ProfileEntity
+            {
+                ProfileID = profileID,
+                // CÁC KHỞI TẠO BẮT BUỘC ĐỂ TRÁNH LỖI CRASH 500
+                Level = new EntityLevelInfo(),
+                Statistics = new StatisticsInfo(),
+            };
 
             // get all stores ids
             var getIDsResult = await GetStoreContainerAsync();

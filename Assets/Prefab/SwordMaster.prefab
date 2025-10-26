@@ -11899,6 +11899,7 @@ GameObject:
   - component: {fileID: 4831243824422965390}
   - component: {fileID: 8825115962319220655}
   - component: {fileID: -2193780697483169089}
+  - component: {fileID: 2569113225266610817}
   m_Layer: 0
   m_Name: SwordMaster
   m_TagString: Untagged
@@ -12258,6 +12259,19 @@ MonoBehaviour:
   playerSpriteRenderer: {fileID: 8428931925214969302}
   animator: {fileID: 0}
   hitColor: {r: 0, g: 0, b: 0, a: 0}
+--- !u!114 &2569113225266610817
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 5581311098160432699}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: 966a4b1b863126446840a55b2a642199, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
+  Character4D: {fileID: 2437366573638755427}
 --- !u!1 &5601386713313732602
 GameObject:
   m_ObjectHideFlags: 0

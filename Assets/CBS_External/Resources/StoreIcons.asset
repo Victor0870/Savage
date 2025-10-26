@@ -9,14 +9,14 @@ MonoBehaviour:
   m_GameObject: {fileID: 0}
   m_Enabled: 1
   m_EditorHideFlags: 0
-  m_Script: {fileID: 11500000, guid: 091d6461d0b837d4087073236d4200d9, type: 3}
-  m_Name: ItemsIcons
+  m_Script: {fileID: 11500000, guid: ae47ee5690e6bb9469f82da0c345370f, type: 3}
+  m_Name: StoreIcons
   m_EditorClassIdentifier: 
   AllSprites:
   - ID: Bow01
-    Sprite: {fileID: 21300000, guid: fb5a6235b2f1e9c40a13def1d0e23505, type: 3}
+    Sprite: {fileID: 21300000, guid: e1ba674e14010ec4580da105317b7b77, type: 3}
   - ID: am1
-    Sprite: {fileID: 21300000, guid: 3f7035d4263aa1a4b968754d4753d5b5, type: 3}
+    Sprite: {fileID: 21300000, guid: aafa2bec27a08ea46968a20915a93364, type: 3}
   - ID: FantasyHeroes.Basic.Helmet.BanditArmor
     Sprite: {fileID: 21300000, guid: 4629ea4429c9fce459966fb18e510229, type: 3}
   - ID: FantasyHeroes.Basic.MeleeWeapon1H.BlacksmithHammer

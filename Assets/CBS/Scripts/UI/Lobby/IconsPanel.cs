@@ -104,6 +104,8 @@ namespace CBS.UI
             UIView.ShowWindow(tasksWindow);
         }
 
+
+
         public void ShowForge()
         {
             var prefabs = CBSScriptable.Get<CraftPrefabs>();
