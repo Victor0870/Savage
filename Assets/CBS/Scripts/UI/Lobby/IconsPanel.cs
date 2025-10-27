@@ -2,6 +2,7 @@
 using UnityEngine;
 using UnityEngine.SceneManagement;
 using System.Collections;
+using OctoberStudio;
 
 namespace CBS.UI
 {
@@ -26,7 +27,9 @@ namespace CBS.UI
         {
             var prefabs = CBSScriptable.Get<InventoryPrefabs>();
             var invertoryPrefab = prefabs.Inventory;
+            //ExpHelper.Add(30);
             UIView.ShowWindow(invertoryPrefab);
+
         }
 
         public void ShowLootBox()
