@@ -27,7 +27,7 @@ namespace CBS.UI
         {
             var prefabs = CBSScriptable.Get<InventoryPrefabs>();
             var invertoryPrefab = prefabs.Inventory;
-            //ExpHelper.Add(30);
+            ExpHelper.Add(60);
             UIView.ShowWindow(invertoryPrefab);
 
         }

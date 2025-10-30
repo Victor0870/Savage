@@ -12,4 +12,6 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: fad4537c6f642794084df661f76aa571, type: 3}
   m_Name: TasksIcons
   m_EditorClassIdentifier: 
-  AllSprites: []
+  AllSprites:
+  - ID: CBSAchievementsADS1
+    Sprite: {fileID: 21300000, guid: f0d50021ec1e940c79754f08fe1bbceb, type: 3}

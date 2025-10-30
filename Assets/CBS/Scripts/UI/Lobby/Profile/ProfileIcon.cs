@@ -24,6 +24,7 @@ namespace CBS.UI
         private AuthData AuthData { get; set; }
         private ProfileConfigData ProfileConfig { get; set; }
         private AvatarDisplayOptions DisplayOption { get; set; }
+        private int lastLevel = 0;
 
         private void Start()
         {
@@ -36,9 +37,12 @@ namespace CBS.UI
             CBSProfile.OnDisplayNameUpdated += OnDisplayNameUpdated;
             CBSProfile.OnPlayerExperienceUpdated += OnPlayerExperienceUpdated;
             CBSProfile.OnAvatarUpdated += OnAvatarImageUpdated;
+            lastLevel = CBSProfile.CachedLevelInfo.CurrentLevel;
             // try display cache value
             DisplayName();
             DisplayLevelData();
+
+
             // get actual data from DB
             CBSProfile.GetAccountInfo(OnAccountInfoGetted);
             if (AuthData.PreloadLevelData)
@@ -84,13 +88,40 @@ namespace CBS.UI
             var levelData = CBSProfile.CachedLevelInfo;
             LevelLabel.text = levelData.CurrentLevel.ToString();
 
+            if (levelData.CurrentLevel > lastLevel)
+                    {
+                        // Level đã tăng, gọi hàm xử lý Level Up
+                        ShowLevelUpReward(levelData.CurrentLevel);
+                        // Cập nhật cấp độ cuối cùng
+                        lastLevel = levelData.CurrentLevel;
+                    }
+
             int curExp = levelData.CurrentExp;
             int nextExp = levelData.NextLevelExp;
             int prevExp = levelData.PrevLevelExp;
             float expVal = (float)(curExp - prevExp) / (float)(nextExp - prevExp);
             ExpLabel.text = curExp.ToString() + "/" + nextExp.ToString();
             ExpSlider.value = expVal;
+
+
         }
+
+        private void ShowLevelUpReward(int newLevel)
+            {
+
+                new PopupViewer().ShowSimplePopup(new PopupRequest
+                {
+                    Title = "Chúc mừng Level Up!",
+                    Body = $"Bạn đã đạt cấp độ {newLevel}. Hãy kiểm tra phần thưởng trong hòm thư!"
+                });
+
+                // var prefabs = CBSScriptable.Get<LeaderboardPrefabs>();
+               //  var leaderboardsPrefab = prefabs.LeaderboardsWindow;
+                // UIView.ShowWindow(leaderboardsPrefab);
+
+
+
+            }
 
         // button click
         public void ShowAccountInfo()
@@ -124,5 +155,7 @@ namespace CBS.UI
         {
             DrawAvatar();
         }
+
+
     }
 }
