@@ -162,62 +162,73 @@ namespace OctoberStudio
 
         protected virtual void Update()
         {
-            if(!IsAlive || !IsMoving || PlayerBehavior.Player == null) return;
+                    if(!IsAlive || !IsMoving || PlayerBehavior.Player == null) return;
 
-            Vector3 target = IsMovingToCustomPoint ? CustomPoint : PlayerBehavior.Player.transform.position;
+                    Vector3 target = IsMovingToCustomPoint ? CustomPoint : PlayerBehavior.Player.transform.position;
 
-            Vector3 direction = (target - transform.position).normalized;
+                    Vector3 direction = (target - transform.position).normalized;
 
-            float speed = Speed;
-            
-            if (appliedEffects.TryGetValue(EffectType.Speed, out var speedEffects))
-            {
-                for(int i = 0; i < speedEffects.Count; i++)
-                {
-                    Effect effect = speedEffects[i];
-                    speed *= effect.Modifier;
-                }
-            }
+                    float speed = Speed;
 
-            transform.position += direction * Time.deltaTime * speed;
-
-            // KIỂM TRA ADAPTER
-            if (characterVisuals != null)
-            {
-                if (characterVisuals is EnemyHeroCharacterAdapter enemyAdapter)
-                {
-                    enemyAdapter.SetMovementDirection(direction.XY());
-                }
-                
-                characterVisuals.SetSpeed(direction.magnitude * speed);
-
-                // Đặt Local Scale để lật
-                if (direction.x != 0) 
-                {
-                    characterVisuals.SetLocalScale(new Vector3(direction.x > 0 ? 1 : -1, 1, 1));
-                }
-            }
-            // KHỐI GỐC CŨ (CHỈ CHẠY KHI KHÔNG CÓ ADAPTER)
-            else 
-            {
-                if (!scaleCoroutine.ExistsAndActive())
-                {
-                    var scale = transform.localScale;
-
-                    if (direction.x > 0 && scale.x < 0 || direction.x < 0 && scale.x > 0)
+                    if (appliedEffects.TryGetValue(EffectType.Speed, out var speedEffects))
                     {
-                        // Preventing flickering when the enemy flips it's scale every frame
-                        if(Time.unscaledTime - lastTimeSwitchedDirection > 0.1f)
+                        for(int i = 0; i < speedEffects.Count; i++)
                         {
-                            scale.x *= -1;
-                            transform.localScale = scale;
+                            Effect effect = speedEffects[i];
+                            speed *= effect.Modifier;
+                        }
+                    }
 
-                            lastTimeSwitchedDirection = Time.unscaledTime;
+                    transform.position += direction * Time.deltaTime * speed;
+
+                    // KIỂM TRA ADAPTER VÀ CHỐNG NHẤP NHÁY
+                    if (!scaleCoroutine.ExistsAndActive())
+                    {
+                        if (characterVisuals != null)
+                        {
+                            // Logic lật hình ảnh cho Hero4D (Dùng Adapter)
+                            var flipFactor = transform.localScale.x;
+
+                            if (direction.x > 0 && flipFactor < 0 || direction.x < 0 && flipFactor > 0)
+                            {
+                                // Cơ chế chống nhấp nháy (Jitter Prevention)
+                                if (Time.unscaledTime - lastTimeSwitchedDirection > 0.1f)
+                                {
+                                    characterVisuals.SetLocalScale(new Vector3(direction.x > 0 ? 1 : -1, 1, 1));
+                                    lastTimeSwitchedDirection = Time.unscaledTime;
+                                }
+                            } else if (direction.x != 0)
+                            {
+                                // Cập nhật scale ngay cả khi không lật hướng (để cập nhật Player.SizeMultiplier)
+                                characterVisuals.SetLocalScale(new Vector3(direction.x > 0 ? 1 : -1, 1, 1));
+                            }
+
+                            if (characterVisuals is EnemyHeroCharacterAdapter enemyAdapter)
+                            {
+                                enemyAdapter.SetMovementDirection(direction.XY());
+                            }
+
+                            characterVisuals.SetSpeed(direction.magnitude * speed);
+                        }
+                        // KHỐI GỐC CŨ (CHỈ CHẠY KHI KHÔNG CÓ ADAPTER)
+                        else
+                        {
+                            var scale = transform.localScale;
+
+                            if (direction.x > 0 && scale.x < 0 || direction.x < 0 && scale.x > 0)
+                            {
+                                // Preventing flickering when the enemy flips it's scale every frame
+                                if(Time.unscaledTime - lastTimeSwitchedDirection > 0.1f)
+                                {
+                                    scale.x *= -1;
+                                    transform.localScale = scale;
+
+                                    lastTimeSwitchedDirection = Time.unscaledTime;
+                                }
+                            }
                         }
                     }
                 }
-            }
-        }
 
         private void OnTriggerEnter2D(Collider2D other)
         {

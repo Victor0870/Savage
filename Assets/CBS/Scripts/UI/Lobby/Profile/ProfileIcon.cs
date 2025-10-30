@@ -3,17 +3,19 @@ using CBS.Scriptable;
 using CBS.Utils;
 using UnityEngine;
 using UnityEngine.UI;
+using TMPro;
+using System;
 
 namespace CBS.UI
 {
     public class ProfileIcon : MonoBehaviour
     {
         [SerializeField]
-        private Text NickNameLabel;
+        private TMP_Text NickNameLabel;
         [SerializeField]
-        private Text LevelLabel;
+        private TMP_Text LevelLabel;
         [SerializeField]
-        private Text ExpLabel;
+        private TMP_Text ExpLabel;
         [SerializeField]
         private Slider ExpSlider;
         [SerializeField]
