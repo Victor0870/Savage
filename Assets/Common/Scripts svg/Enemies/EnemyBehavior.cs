@@ -6,6 +6,7 @@ using System.Collections.Generic;
 using UnityEngine;
 using UnityEngine.Events;
 using UnityEngine.Serialization;
+using System.Linq; // Cần thiết cho GetVisibleEnemy của Adapter
 
 namespace OctoberStudio
 {
@@ -21,6 +22,7 @@ namespace OctoberStudio
         [SerializeField] protected float speed;
         public float Speed { get; protected set; }
 
+        // Các trường Settings khác giữ nguyên
         [Tooltip("The LevelData's 'Enemy Damage' is multiplied by this value to determine the damage of the enemy on each level")]
         [SerializeField] float damage = 1f;
 
@@ -34,10 +36,14 @@ namespace OctoberStudio
 
         [Header("References")]
         [SerializeField] Rigidbody2D rb;
-        [SerializeField] SpriteRenderer spriteRenderer;
-        [SerializeField] DissolveSettings dissolveSettings;
-        [SerializeField] SpriteRenderer shadowSprite;
+        [SerializeField] SpriteRenderer spriteRenderer; // CŨ: Dành cho Legacy Enemy
+        [SerializeField] DissolveSettings dissolveSettings; // CŨ: Dành cho Legacy Enemy
+        [SerializeField] SpriteRenderer shadowSprite; // CŨ: Dành cho Legacy Enemy
         [SerializeField] Collider2D enemyCollider;
+        
+        // THÊM MỚI: Tham chiếu đến Adapter (dành cho Hero4D Enemy)
+        [Tooltip("Component xử lý visuals/animation (nếu là Hero4D)")]
+        [SerializeField] OctoberStudio.ICharacterBehavior characterVisuals; 
 
         public Vector2 Center => enemyCollider.bounds.center;
 
@@ -48,7 +54,11 @@ namespace OctoberStudio
         public EnemyData Data { get; private set; }
         public WaveOverride WaveOverride { get; protected set; }
 
-        public bool IsVisible => spriteRenderer.isVisible;
+        // SỬA: Logic kiểm tra hiển thị (sử dụng Adapter nếu có)
+        public bool IsVisible => characterVisuals != null 
+            ? characterVisuals.Transform.GetComponentInChildren<SpriteRenderer>()?.isVisible ?? true 
+            : (spriteRenderer != null ? spriteRenderer.isVisible : true); // Kiểm tra SpriteRenderer trong Adapter hoặc SpriteRenderer cũ
+
         public bool IsAlive => HP > 0;
         // The enemy does not receive damage when this property is true
         public bool IsInvulnerable { get; protected set; }
@@ -68,6 +78,7 @@ namespace OctoberStudio
 
         public float LastTimeDamagedPlayer { get; set; }
 
+        // CŨ: Dành cho Legacy Enemy
         private Material sharedMaterial;
         private Material effectsMaterial;
 
@@ -90,10 +101,22 @@ namespace OctoberStudio
 
         protected virtual void Awake()
         {
-            sharedMaterial = spriteRenderer.sharedMaterial;
-            effectsMaterial = Instantiate(sharedMaterial);
+            // KHỐI GỐC CŨ (CHỈ CHẠY NẾU CÓ SPRITE RENDERER CŨ)
+            if (spriteRenderer != null)
+            {
+                sharedMaterial = spriteRenderer.sharedMaterial;
+                effectsMaterial = Instantiate(sharedMaterial);
+            }
+            if (shadowSprite != null)
+            {
+                shadowAlpha = shadowSprite.color.a;
+            }
 
-            shadowAlpha = shadowSprite.color.a;
+            // THÊM: TÌM KIẾM ADAPTER NẾU CHƯA GÁN
+            if (characterVisuals == null)
+            {
+                characterVisuals = GetComponentInChildren<OctoberStudio.ICharacterBehavior>();
+            }
         }
 
         public void SetData(EnemyData data)
@@ -119,13 +142,21 @@ namespace OctoberStudio
             HP = MaxHP;
             IsMoving = true;
 
-            shadowSprite.SetAlpha(shadowAlpha);
+            if (shadowSprite != null) shadowSprite.SetAlpha(shadowAlpha);
 
             enemyCollider.enabled = true;
             if (shouldFadeIn)
             {
-                spriteRenderer.SetAlpha(0);
-                fadeInCoroutine = spriteRenderer.DoAlpha(1, 0.2f);
+                // LOGIC FADE IN MỚI (DÙNG ADAPTER) HOẶC CŨ (DÙNG SPRITE)
+                if (characterVisuals != null)
+                {
+                    characterVisuals.Transform.gameObject.SetActive(true);
+                }
+                else if (spriteRenderer != null)
+                {
+                    spriteRenderer.SetAlpha(0);
+                    fadeInCoroutine = spriteRenderer.DoAlpha(1, 0.2f);
+                } 
             } 
         }
 
@@ -150,20 +181,39 @@ namespace OctoberStudio
 
             transform.position += direction * Time.deltaTime * speed;
 
-            // Enemy looks in the direction it's moving
-            if (!scaleCoroutine.ExistsAndActive())
+            // KIỂM TRA ADAPTER
+            if (characterVisuals != null)
             {
-                var scale = transform.localScale;
-
-                if (direction.x > 0 && scale.x < 0 || direction.x < 0 && scale.x > 0)
+                if (characterVisuals is EnemyHeroCharacterAdapter enemyAdapter)
                 {
-                    // Preventing flickering when the enemy flips it's scale every frame
-                    if(Time.unscaledTime - lastTimeSwitchedDirection > 0.1f)
-                    {
-                        scale.x *= -1;
-                        transform.localScale = scale;
+                    enemyAdapter.SetMovementDirection(direction.XY());
+                }
+                
+                characterVisuals.SetSpeed(direction.magnitude * speed);
 
-                        lastTimeSwitchedDirection = Time.unscaledTime;
+                // Đặt Local Scale để lật
+                if (direction.x != 0) 
+                {
+                    characterVisuals.SetLocalScale(new Vector3(direction.x > 0 ? 1 : -1, 1, 1));
+                }
+            }
+            // KHỐI GỐC CŨ (CHỈ CHẠY KHI KHÔNG CÓ ADAPTER)
+            else 
+            {
+                if (!scaleCoroutine.ExistsAndActive())
+                {
+                    var scale = transform.localScale;
+
+                    if (direction.x > 0 && scale.x < 0 || direction.x < 0 && scale.x > 0)
+                    {
+                        // Preventing flickering when the enemy flips it's scale every frame
+                        if(Time.unscaledTime - lastTimeSwitchedDirection > 0.1f)
+                        {
+                            scale.x *= -1;
+                            transform.localScale = scale;
+
+                            lastTimeSwitchedDirection = Time.unscaledTime;
+                        }
                     }
                 }
             }
@@ -258,13 +308,21 @@ namespace OctoberStudio
             }
             else
             {
-                // Flashing Color on hit
-                if (!damageCoroutine.ExistsAndActive())
+                // LOGIC FLASH ON HIT
+                if (characterVisuals != null)
                 {
-                    FlashHit(true);
+                    characterVisuals.FlashHit(); // MỚI: Dùng Adapter
+                }
+                else
+                {
+                    // CŨ: Dùng SpriteRenderer
+                    if (!damageCoroutine.ExistsAndActive())
+                    {
+                        FlashHit(true);
+                    }
                 }
 
-                // Scaling on Hit
+                // Scaling on Hit (Dùng cho cả 2 loại)
                 if (!scaleCoroutine.ExistsAndActive())
                 {
                     var x = transform.localScale.x;
@@ -277,8 +335,12 @@ namespace OctoberStudio
             }
         }
 
+        // PHƯƠNG THỨC CŨ GỐC
         private void FlashHit(bool resetMaterial, UnityAction onFinish = null)
         {
+            // Kiểm tra an toàn cho Legacy Enemy
+            if (spriteRenderer == null || effectsMaterial == null) return;
+            
             spriteRenderer.material = effectsMaterial;
 
             var transparentColor = hitColor;
@@ -318,35 +380,54 @@ namespace OctoberStudio
 
             fadeInCoroutine.StopIfExists();
 
-            // Changin properties of a material creates a new instance of a material. 
-            // We cache the material at the start of a game and assign it back when we're done with it
-            // This way the batching optimization is restored
-
-            spriteRenderer.material = effectsMaterial;
-
-            if (flash)
+            // LOGIC DIE
+            if (characterVisuals != null)
             {
-                FlashHit(false, () => {
+                // MỚI: Dùng Adapter
+                characterVisuals.PlayDefeatAnimation();
+                
+                // Ẩn gameObject sau 2s (thời gian chạy animation chết)
+                EasingManager.DoAfter(2f, () => gameObject.SetActive(false));
+            } 
+            else if (spriteRenderer != null && dissolveSettings != null && effectsMaterial != null)
+            {
+                // CŨ: Dùng Dissolve Shader
+                
+                // Changin properties of a material creates a new instance of a material. 
+                // We cache the material at the start of a game and assign it back when we're done with it
+                // This way the batching optimization is restored
+
+                spriteRenderer.material = effectsMaterial;
+
+                if (flash)
+                {
+                    FlashHit(false, () => {
+                        effectsMaterial.SetColor(_Overlay, Color.clear);
+                        effectsMaterial.DoColor(_Overlay, dissolveSettings.DissolveColor, dissolveSettings.Duration - 0.1f);
+                    });
+                } else
+                {
                     effectsMaterial.SetColor(_Overlay, Color.clear);
-                    effectsMaterial.DoColor(_Overlay, dissolveSettings.DissolveColor, dissolveSettings.Duration - 0.1f);
-                });
-            } else
-            {
-                effectsMaterial.SetColor(_Overlay, Color.clear);
-                effectsMaterial.DoColor(_Overlay, dissolveSettings.DissolveColor, dissolveSettings.Duration);
-            }
+                    effectsMaterial.DoColor(_Overlay, dissolveSettings.DissolveColor, dissolveSettings.Duration);
+                }
 
-            effectsMaterial.SetFloat(_Disolve, 0);
-            effectsMaterial.DoFloat(_Disolve, 1, dissolveSettings.Duration + 0.02f).SetEasingCurve(dissolveSettings.DissolveCurve).SetOnFinish(() =>
-            {
-                effectsMaterial.SetColor(_Overlay, Color.clear);
                 effectsMaterial.SetFloat(_Disolve, 0);
+                effectsMaterial.DoFloat(_Disolve, 1, dissolveSettings.Duration + 0.02f).SetEasingCurve(dissolveSettings.DissolveCurve).SetOnFinish(() =>
+                {
+                    effectsMaterial.SetColor(_Overlay, Color.clear);
+                    effectsMaterial.SetFloat(_Disolve, 0);
 
+                    gameObject.SetActive(false);
+                    spriteRenderer.material = sharedMaterial;
+                });
+
+                if (shadowSprite != null) shadowSprite.DoAlpha(0, dissolveSettings.Duration);
+            }
+            else
+            {
+                 // Fallback an toàn (chẳng có gì để điều khiển)
                 gameObject.SetActive(false);
-                spriteRenderer.material = sharedMaterial;
-            });
-
-            shadowSprite.DoAlpha(0, dissolveSettings.Duration);
+            }
 
             appliedEffects.Clear();
 
