@@ -4,6 +4,8 @@ using OctoberStudio.Bossfight;
 using OctoberStudio.Extensions; // Cần cho DoAlpha
 using UnityEngine;
 using UnityEngine.Events;
+using OctoberStudio; 
+using OctoberStudio.Abilities;
 
 /// <summary>
 /// Adapter Hero4D riêng cho Boss, hỗ trợ các animation và hiệu ứng đặc biệt (Alpha).
