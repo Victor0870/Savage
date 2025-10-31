@@ -301,6 +301,7 @@ namespace OctoberStudio
 
                     enemy.onEnemyDied += OnEnemyDied;
                     TakeDamage(enemy.GetDamage());
+                    enemy.CheckTriggerEnter2D(collision);
                 }
             }
             else
