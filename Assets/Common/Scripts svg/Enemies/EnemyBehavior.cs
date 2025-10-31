@@ -1,3 +1,5 @@
+// File: Scripts svg/Enemies/EnemyBehavior.cs (Đã sửa lỗi CS0122)
+
 using OctoberStudio.Easing;
 using OctoberStudio.Enemy;
 using OctoberStudio.Extensions;
@@ -36,15 +38,15 @@ namespace OctoberStudio
         [SerializeField] bool shouldFadeIn;
 
         [Header("References (Legacy)")]
-        [SerializeField] Rigidbody2D rb;
-        [SerializeField] SpriteRenderer spriteRenderer;
-        [SerializeField] DissolveSettings dissolveSettings;
-        [SerializeField] SpriteRenderer shadowSprite;
+        [SerializeField] protected Rigidbody2D rb; // ĐÃ SỬA CẤP ĐỘ TRUY CẬP
+        [SerializeField] protected SpriteRenderer spriteRenderer; // ĐÃ SỬA CẤP ĐỘ TRUY CẬP
+        [SerializeField] protected DissolveSettings dissolveSettings; // ĐÃ SỬA CẤP ĐỘ TRUY CẬP
+        [SerializeField] protected SpriteRenderer shadowSprite; // ĐÃ SỬA CẤP ĐỘ TRUY CẬP
 
         // --- BỔ SUNG CHO HERO4D VÀ TẤN CÔNG ---
         [Header("Visuals (Hero4D)")]
         [Tooltip("Adapter xử lý visuals và animation (Boss/Enemy Hero4D Adapter)")]
-        [SerializeField] OctoberStudio.ICharacterBehavior characterVisuals; // <--- DÙNG CHUNG
+        [SerializeField] protected OctoberStudio.ICharacterBehavior characterVisuals; // ĐÃ SỬA CẤP ĐỘ TRUY CẬP
 
         [Header("Attack on Contact")]
         [Tooltip("Bật tính năng chơi animation tấn công khi chạm Player (chỉ Hero4D)")]
@@ -66,7 +68,6 @@ namespace OctoberStudio
         public EnemyData Data { get; private set; }
         public WaveOverride WaveOverride { get; protected set; }
 
-        // SỬA: Logic kiểm tra hiển thị
         public bool IsVisible => characterVisuals != null
             ? characterVisuals.Transform.GetComponentInChildren<SpriteRenderer>()?.isVisible ?? true
             : (spriteRenderer != null ? spriteRenderer.isVisible : true);
@@ -245,8 +246,8 @@ namespace OctoberStudio
             }
         }
 
-        // PHƯƠNG THỨC GỐC: Chỉ xử lý Projectile (đạn)
-        private void OnTriggerEnter2D(Collider2D other)
+        // ĐÃ SỬA: Thay đổi sang protected virtual để Minion có thể ghi đè logic
+        protected virtual void OnTriggerEnter2D(Collider2D other)
         {
             ProjectileBehavior projectile = other.GetComponent<ProjectileBehavior>();
 
@@ -291,10 +292,10 @@ namespace OctoberStudio
         {
             _isAttacking = true;
 
-            if (characterVisuals != null) // <--- ĐẢM BẢO CHỈ CHẠY NẾU CÓ ADAPTER
+            if (characterVisuals != null)
             {
                 // Kích hoạt animation tấn công (sử dụng logic PlayWeaponAttack trong Adapter)
-                characterVisuals.PlayWeaponAttack(AbilityType.SteelSword); 
+                characterVisuals.PlayWeaponAttack(AbilityType.SteelSword);
             }
 
             yield return new WaitForSeconds(attackAnimationDuration);
