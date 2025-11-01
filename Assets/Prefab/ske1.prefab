@@ -9060,6 +9060,7 @@ MonoBehaviour:
   m_Name: 
   m_EditorClassIdentifier: 
   Character4D: {fileID: 4630040742799782520}
+  AttackAnimationType: 1
 --- !u!114 &-4516357417008176979
 MonoBehaviour:
   m_ObjectHideFlags: 0
@@ -9072,17 +9073,21 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: fcd4d5b00373d1a488d383677cd9ca90, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
+  proximityAttackRange: 2
+  proximityAttackCooldown: 0.7
   speed: 0.8
-  damage: 10
-  hp: 8
+  damage: 1
+  hp: 100
   canBeKickedBack: 1
   shouldFadeIn: 0
   rb: {fileID: 85392491046974612}
   spriteRenderer: {fileID: 0}
   dissolveSettings: {fileID: 0}
   shadowSprite: {fileID: 0}
+  attackOnContact: 1
+  attackAnimationDuration: 1.5
   enemyCollider: {fileID: 800078951250639816}
-  hitScaleAmount: 0.2
+  hitScaleAmount: 0.26
   hitColor: {r: 1, g: 1, b: 1, a: 1}
 --- !u!50 &85392491046974612
 Rigidbody2D:

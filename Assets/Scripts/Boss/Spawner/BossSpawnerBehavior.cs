@@ -1,8 +1,12 @@
+// File: BossSpawnerBehavior.cs (Đã sửa lỗi CS1540 và CS1061)
+
+using OctoberStudio.Bossfight;
 using OctoberStudio.Enemy;
 using OctoberStudio.Extensions;
 using System.Collections;
 using UnityEngine;
-using System.Linq; // Cần thiết cho các thao tác mảng/list
+using System.Linq; 
+using OctoberStudio.Easing; // <-- KHẮC PHỤC CS1061 (DoAlpha)
 
 namespace OctoberStudio.Enemy
 {
@@ -19,14 +23,15 @@ namespace OctoberStudio.Enemy
         [SerializeField] float spawnMinRadius = 1f;
         [SerializeField] float spawnMaxRadius = 2f;
         
-        [Header("Minion Data (Phải là BossMinionBehavior)")]
+        [Header("Minion Data")]
         [Tooltip("EnemyType phải được định nghĩa trong EnemyDatabase và trỏ tới Prefab Minion.")]
         [SerializeField] EnemyType minionEnemyType = EnemyType.Shade; 
 
         private const float INVULNERABLE_ALPHA = 0.5f;
         private const float FULL_ALPHA = 1f;
 
-        private IBossCharacterBehavior BossVisuals { get; set; }
+        private IBossCharacterBehavior BossVisuals => characterVisuals as IBossCharacterBehavior;
+        
         private Coroutine _behaviorCoroutine;
 
         public override void Play()
@@ -34,20 +39,18 @@ namespace OctoberStudio.Enemy
             base.Play();
             
             // Ép kiểu Adapter từ lớp cha (EnemyBehavior)
-            BossVisuals = characterVisuals as IBossCharacterBehavior;
+            // LƯU Ý: characterVisuals là protected, nên truy cập trực tiếp (không cần tiền tố this. hoặc BossSpawnerBehavior.)
+           // BossVisuals = characterVisuals as IBossCharacterBehavior;
 
             if (_behaviorCoroutine != null) StopCoroutine(_behaviorCoroutine);
             _behaviorCoroutine = StartCoroutine(BossBehaviorCoroutine());
         }
-
+        
         private IEnumerator BossBehaviorCoroutine()
         {
             while (IsAlive)
             {
-                // PHASE 1: DI CHUYỂN & MIỄN NHIỄM (7s)
                 yield return MoveInvulnerablePhase();
-
-                // PHASE 2: ĐỨNG YÊN & ĐẺ QUÁI (3s)
                 yield return SpawnVulnerablePhase();
             }
         }
@@ -57,7 +60,6 @@ namespace OctoberStudio.Enemy
             // 1. Kích hoạt Miễn nhiễm & Hiệu ứng mờ
             SetInvulnerability(true, INVULNERABLE_ALPHA);
             
-            // Đảm bảo animation đang là RUN
             if (BossVisuals != null) BossVisuals.SetSpeed(1f);
 
             IsMoving = true;
@@ -72,7 +74,6 @@ namespace OctoberStudio.Enemy
 
             while (Time.time < startTime + moveDuration)
             {
-                // Cập nhật điểm đến nếu đã đến nơi
                 if (Vector2.Distance(transform.position.XY(), randomPoint) < 0.2f)
                 {
                     randomPoint = StageController.FieldManager.Fence.GetRandomPointInside(1f);
@@ -90,7 +91,6 @@ namespace OctoberStudio.Enemy
             // 1. Hủy Miễn nhiễm & Khôi phục Alpha
             SetInvulnerability(false, FULL_ALPHA);
             
-            // Kích hoạt animation tụ lực/chuẩn bị đẻ quái
             if (BossVisuals != null) BossVisuals.PlayChargeAnimation(true);
 
             // 2. Đẻ quái lần lượt trong 3s
@@ -102,11 +102,9 @@ namespace OctoberStudio.Enemy
                 yield return new WaitForSeconds(timeBetweenSpawns);
             }
             
-            // Chờ phần thời gian còn lại của 3s (nếu có)
             float elapsedSpawnTime = minionsToSpawn * timeBetweenSpawns;
             yield return new WaitForSeconds(Mathf.Max(0, spawnDuration - elapsedSpawnTime));
 
-            // Kết thúc animation tụ lực/charge
             if (BossVisuals != null) BossVisuals.PlayChargeAnimation(false);
         }
 
@@ -120,7 +118,7 @@ namespace OctoberStudio.Enemy
             // Áp dụng cho Legacy Boss (SpriteRenderer cũ)
             if (spriteRenderer != null)
             {
-                spriteRenderer.DoAlpha(targetAlpha, 0.2f); //
+                spriteRenderer.DoAlpha(targetAlpha, 0.2f); 
             }
             // Áp dụng cho Hero4D Boss (qua Adapter)
             if (BossVisuals != null)
@@ -131,26 +129,23 @@ namespace OctoberStudio.Enemy
 
         private void SpawnMinion()
         {
-            // Tính toán vị trí và hướng ngẫu nhiên
             Vector2 spawnOffset = Random.onUnitSphere.XY().normalized * Random.Range(spawnMinRadius, spawnMaxRadius);
             Vector2 spawnPosition = transform.position.XY() + spawnOffset;
             Vector2 initialDirection = spawnOffset.normalized;
 
-            // Spawn Minion (Giả định Minion Prefab có BossMinionBehavior)
-            // Minion mới sẽ kế thừa các chỉ số sát thương/HP của quái thường
             var minionEnemy = StageController.EnemiesSpawner.Spawn(minionEnemyType, spawnPosition);
             
             if (minionEnemy != null)
             {
-                // Minion cần được đặt Rigidbody là Kinematic=false để di chuyển bằng vật lý
-                if (minionEnemy.rb != null)
+                // KHẮC PHỤC CS1540: Truy cập RB thông qua Public Property minionEnemy.RB
+                if (minionEnemy.RB != null)
                 {
-                    minionEnemy.rb.isKinematic = false;
+                    minionEnemy.RB.isKinematic = false;
+                    minionEnemy.RB.linearVelocity = Vector2.zero; 
                 }
 
                 if (minionEnemy is BossMinionBehavior minion)
                 {
-                    // Bắn Minion ra với lực ban đầu
                     minion.LaunchMinion(initialDirection);
                 }
             }

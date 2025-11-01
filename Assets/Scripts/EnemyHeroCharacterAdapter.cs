@@ -1,9 +1,18 @@
-// File: EnemyHeroCharacterAdapter.cs
 using Assets.HeroEditor4D.Common.Scripts.CharacterScripts;
 using Assets.HeroEditor4D.Common.Scripts.Enums;
 using OctoberStudio;
 using UnityEngine;
 using UnityEngine.Events;
+
+// Định nghĩa các loại hoạt ảnh tấn công có thể chọn
+public enum EnemyAttackAnimation
+{
+    Jab,        // Đấm/Đâm nhanh (AttackManager.Jab())
+    Slash1H,    // Chém 1 tay (AttackManager.Slash(false))
+    Slash2H,    // Chém 2 tay (AttackManager.Slash(true))
+    ShotBow,    // Bắn cung (AttackManager.ShotBow())
+    Fire        // Bắn súng (AttackManager.Fire())
+}
 
 /// <summary>
 /// Adapter cho phép Hero4D hoạt động như một Visuals Controller cho EnemyBehavior.
@@ -12,6 +21,11 @@ public class EnemyHeroCharacterAdapter : MonoBehaviour, OctoberStudio.ICharacter
 {
     [Header("Hero Editor 4D")]
     public Character4D Character4D;
+
+    // Trường mới để chọn Animation trong Inspector
+    [Header("Attack Animation")]
+    [Tooltip("Chọn animation tấn công Hero4D sẽ kích hoạt khi kẻ thù chạm/tiếp cận.")]
+    public EnemyAttackAnimation AttackAnimationType = EnemyAttackAnimation.Slash1H;
 
     private AnimationManager _animationManager;
     private float _fixedScaleFactor;
@@ -38,7 +52,7 @@ public class EnemyHeroCharacterAdapter : MonoBehaviour, OctoberStudio.ICharacter
     }
 
     public void SetCharacterData(CharacterData data) { }
-    
+
     public void SetMovementDirection(Vector2 direction)
     {
         _currentMovementDirection = direction.normalized;
@@ -103,5 +117,33 @@ public class EnemyHeroCharacterAdapter : MonoBehaviour, OctoberStudio.ICharacter
     public void PlayReviveAnimation() { _animationManager.SetState(CharacterState.Ready); }
     public void PlayDefeatAnimation() { _animationManager.Die(); }
     public void FlashHit(UnityAction onFinish = null) { _animationManager.Hit(); onFinish?.Invoke(); }
-    public void PlayWeaponAttack(AbilityType abilityType) { /* N/A */ } 
+
+    // Logic gọi animation dựa trên lựa chọn trong Inspector
+    public void PlayWeaponAttack(OctoberStudio.AbilityType abilityType)
+    {
+        if (_animationManager != null && !_animationManager.IsAction)
+        {
+            switch (AttackAnimationType)
+            {
+                case EnemyAttackAnimation.Jab:
+                    _animationManager.Jab();
+                    break;
+                case EnemyAttackAnimation.Slash1H:
+                    _animationManager.Slash(twoHanded: false);
+                    break;
+                case EnemyAttackAnimation.Slash2H:
+                    _animationManager.Slash(twoHanded: true);
+                    break;
+                case EnemyAttackAnimation.ShotBow:
+                    _animationManager.ShotBow();
+                    break;
+                case EnemyAttackAnimation.Fire:
+                    _animationManager.Fire();
+                    break;
+                default:
+                    _animationManager.Jab();
+                    break;
+            }
+        }
+    }
 }

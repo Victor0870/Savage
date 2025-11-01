@@ -1,11 +1,13 @@
 using Assets.HeroEditor4D.Common.Scripts.CharacterScripts;
 using Assets.HeroEditor4D.Common.Scripts.Enums;
 using OctoberStudio.Bossfight;
-using OctoberStudio.Extensions; // Cần cho DoAlpha
+using OctoberStudio.Extensions;
 using UnityEngine;
 using UnityEngine.Events;
-using OctoberStudio; 
+using System.Linq;
+using OctoberStudio;
 using OctoberStudio.Abilities;
+using OctoberStudio.Easing; // Cần thiết cho DoAlpha
 
 /// <summary>
 /// Adapter Hero4D riêng cho Boss, hỗ trợ các animation và hiệu ứng đặc biệt (Alpha).
@@ -14,11 +16,10 @@ public class BossHeroCharacterAdapter : MonoBehaviour, OctoberStudio.IBossCharac
 {
     [Header("Hero Editor 4D")]
     public Character4D Character4D;
-    private SpriteRenderer _rootRenderer; // SpriteRenderer của nhân vật chính Hero4D
 
     private AnimationManager _animationManager;
     private float _fixedScaleFactor;
-    private Vector2 _currentMovementDirection = Vector2.down; 
+    private Vector2 _currentMovementDirection = Vector2.down;
 
     // Triển khai ICharacterBehavior (Phần dùng chung)
     public Transform Transform => transform;
@@ -31,11 +32,6 @@ public class BossHeroCharacterAdapter : MonoBehaviour, OctoberStudio.IBossCharac
             Character4D = GetComponent<Character4D>();
         }
         _animationManager = Character4D.AnimationManager;
-        _rootRenderer = Character4D.GetComponent<SpriteRenderer>(); // Lấy SpriteRenderer gốc Hero4D
-
-        // LƯU Ý: Hero4D có nhiều SpriteRenderer con. Việc thay đổi alpha ở đây
-        // có thể chỉ áp dụng cho SpriteRenderer gốc. Cần kiểm tra nếu hiệu ứng
-        // không hoạt động, bạn phải chạy vòng lặp qua các SpriteRenderer con.
 
         _fixedScaleFactor = transform.localScale.x;
 
@@ -48,14 +44,47 @@ public class BossHeroCharacterAdapter : MonoBehaviour, OctoberStudio.IBossCharac
 
     public void SetCharacterData(CharacterData data) { }
     public void SetMovementDirection(Vector2 direction) { _currentMovementDirection = direction.normalized; }
-    
-    public void SetSpeed(float speed) 
-    { 
+
+    public void SetSpeed(float speed)
+    {
         CharacterState state = speed > 0.01f ? CharacterState.Run : CharacterState.Idle;
         _animationManager.SetState(state);
-        // ... (Logic SetDirection chi tiết tương tự Enemy Adapter)
-    } 
-    public void SetLocalScale(Vector3 scale) { /* ... Logic lật ... */ }
+
+        if (speed > 0.01f)
+        {
+            Vector2 cardinalDirection;
+            Vector2 rawDirection = _currentMovementDirection;
+
+            if (Mathf.Abs(rawDirection.x) >= Mathf.Abs(rawDirection.y))
+            {
+                cardinalDirection = rawDirection.x > 0 ? Vector2.right : Vector2.left;
+            }
+            else
+            {
+                cardinalDirection = rawDirection.y > 0 ? Vector2.up : Vector2.down;
+            }
+
+            Character4D.SetDirection(cardinalDirection);
+        }
+    }
+
+    public void SetLocalScale(Vector3 scale)
+    {
+        float flipFactor = scale.x;
+
+        if (Character4D != null && Character4D.Active != null)
+        {
+            var activeCharacter = Character4D.Active;
+
+            if (activeCharacter == Character4D.Left || activeCharacter == Character4D.Right)
+            {
+                flipFactor = 1;
+            }
+        }
+
+        transform.localScale = new Vector3(flipFactor * Mathf.Abs(_fixedScaleFactor), _fixedScaleFactor, _fixedScaleFactor);
+    }
+
     public void SetSortingOrder(int order) { /* ... Logic sorting ... */ }
     public void PlayReviveAnimation() { _animationManager.SetState(CharacterState.Ready); }
     public void PlayDefeatAnimation() { _animationManager.Die(); }
@@ -68,31 +97,30 @@ public class BossHeroCharacterAdapter : MonoBehaviour, OctoberStudio.IBossCharac
     {
         if (startCharging)
         {
-            // Sử dụng animation Magic/Ready để mô phỏng trạng thái "đẻ quái"
-            _animationManager.SetState(CharacterState.Magic);
+            // KHẮC PHỤC LỖI CS0117: Dùng CharacterState.Ready
+            _animationManager.SetState(CharacterState.Ready);
         }
         else
         {
-            _animationManager.SetState(CharacterState.Idle); 
+            _animationManager.SetState(CharacterState.Idle);
         }
     }
 
     public void PlayAttackAnimation(BossType bossType)
     {
-        _animationManager.Cross(); 
+        // KHẮC PHỤC LỖI CS1061: Dùng Jab() thay cho Cross()
+        _animationManager.Jab();
     }
 
     public void PlayTeleportAnimation()
     {
-        _animationManager.SetState(CharacterState.Jumping);
+        // KHẮC PHỤC LỖI CS0117: Dùng CharacterState.Ready
+        _animationManager.SetState(CharacterState.Ready);
     }
-    
-    /// <summary>
-    /// Thiết lập Alpha cho toàn bộ mô hình Hero4D (dùng cho miễn nhiễm).
-    /// </summary>
+
     public void SetVisualsAlpha(float alpha)
     {
-        // Chạy Easing cho tất cả SpriteRenderer con
+        // KHẮC PHỤC LỖI CS1061: DoAlpha đã hoạt động nhờ using OctoberStudio.Easing
         foreach (var renderer in Character4D.GetComponentsInChildren<SpriteRenderer>(true))
         {
             renderer.DoAlpha(alpha, 0.2f);

@@ -30,7 +30,7 @@ namespace OctoberStudio.Enemy
             if (rb != null)
             {
                 rb.isKinematic = false;
-                rb.velocity = Vector2.zero;
+                rb.linearVelocity = Vector2.zero;
             }
             
             IsMoving = false; // Vô hiệu hóa logic di chuyển transform của lớp cha
@@ -55,8 +55,8 @@ namespace OctoberStudio.Enemy
 
             if (rb != null)
             {
-                Vector2 currentMoveDir = rb.velocity.normalized;
-                float speed = rb.velocity.magnitude;
+                Vector2 currentMoveDir = rb.linearVelocity.normalized;
+                float speed = rb.linearVelocity.magnitude;
 
                 // Cập nhật hướng và animation cho Hero4D Adapter
                 if (MinionVisuals != null)
@@ -118,7 +118,7 @@ namespace OctoberStudio.Enemy
             if (rb != null)
             {
                 rb.isKinematic = true;
-                rb.velocity = Vector2.zero;
+                rb.linearVelocity = Vector2.zero;
                 rb.angularVelocity = 0;
             }
             base.Die(flash);

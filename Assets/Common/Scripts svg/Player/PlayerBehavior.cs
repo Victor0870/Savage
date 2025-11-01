@@ -300,8 +300,10 @@ namespace OctoberStudio
                     enemy.LastTimeDamagedPlayer = Time.time;
 
                     enemy.onEnemyDied += OnEnemyDied;
-                    TakeDamage(enemy.GetDamage());
                     enemy.CheckTriggerEnter2D(collision);
+
+                    TakeDamage(enemy.GetDamage());
+
                 }
             }
             else
