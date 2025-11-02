@@ -9073,18 +9073,19 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: fcd4d5b00373d1a488d383677cd9ca90, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
-  proximityAttackRange: 2
-  proximityAttackCooldown: 0.7
   speed: 0.8
-  damage: 1
-  hp: 100
+  damage: 8
+  hp: 10
   canBeKickedBack: 1
   shouldFadeIn: 0
+  attackMode: 0
+  attackOnContact: 1
+  proximityAttackRange: 2
+  proximityAttackCooldown: 0.7
   rb: {fileID: 85392491046974612}
   spriteRenderer: {fileID: 0}
   dissolveSettings: {fileID: 0}
   shadowSprite: {fileID: 0}
-  attackOnContact: 1
   attackAnimationDuration: 1.5
   enemyCollider: {fileID: 800078951250639816}
   hitScaleAmount: 0.26
@@ -9115,7 +9116,7 @@ Rigidbody2D:
   m_Interpolate: 0
   m_SleepingMode: 1
   m_CollisionDetection: 0
-  m_Constraints: 0
+  m_Constraints: 4
 --- !u!58 &4927675768693193472
 CircleCollider2D:
   m_ObjectHideFlags: 0

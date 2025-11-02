@@ -1,120 +1,120 @@
+// File: Scripts/Boss/Spawner/BossMinionBehavior.cs
+
 using OctoberStudio.Extensions;
 using System.Collections;
 using UnityEngine;
 using UnityEngine.Events;
+using OctoberStudio; // ✅ BỔ SUNG: Cần thiết để tham chiếu ICharacterBehavior
 
 namespace OctoberStudio.Enemy
 {
+    // Chúng ta định nghĩa lại Enum ở đây để đảm bảo Minion có thể thấy nó.
+    public enum EnemyAttackMode
+    {
+        Contact = 0,
+        Proximity = 1
+    }
+
     /// <summary>
-    /// Logic cho Quái con của BossSpawner. 
+    /// Logic cho Quái con của BossSpawner.
     /// Minion này di chuyển thẳng bằng lực vật lý (bouncing) và tấn công khi chạm Player.
     /// </summary>
     public class BossMinionBehavior : EnemyBehavior
     {
         [Header("Minion Spawner Settings")]
         [SerializeField] float initialForce = 3f;
-        [SerializeField] float attackAnimationDuration = 0.5f;
+
+        // CÁC TRƯỜNG _isAttacking VÀ _attackRoutine ĐƯỢC KẾ THỪA (PROTECTED) TỪ EnemyBehavior.cs
 
         private Vector2 _currentDirection;
-        private Coroutine _attackRoutine;
-        private bool _isAttacking = false;
-        
+
         // Thuộc tính để truy cập Adapter Hero4D của Minion
-        private ICharacterBehavior MinionVisuals => characterVisuals; 
+        private ICharacterBehavior MinionVisuals => characterVisuals;
 
         public override void Play()
         {
-            base.Play();
+            base.Play(); // Chạy logic khởi tạo MaxHP/Speed từ EnemyBehavior
 
-            // Cài đặt ban đầu cho vật lý (đã được làm trong SpawnMinion, nhưng làm lại an toàn)
+            // THAY ĐỔI 1: BẬT LẠI PHYSICS (dùng lực)
             if (rb != null)
             {
-                rb.isKinematic = false;
+                rb.isKinematic = false; // Quan trọng: Bật lại chế độ vật lý
                 rb.linearVelocity = Vector2.zero;
             }
-            
-            IsMoving = false; // Vô hiệu hóa logic di chuyển transform của lớp cha
+
+            IsMoving = false; // Quan trọng: Tắt cờ di chuyển bằng transform của EnemyBehavior
         }
 
+        // THAY ĐỔI 2: ÁP DỤNG LỰC ĐẨY BAN ĐẦU VÀ ÉP KIỂU ĐỂ GỌI SetMovementDirection
         public void LaunchMinion(Vector2 direction)
         {
             _currentDirection = direction.normalized;
-            
-            // Kích hoạt di chuyển bằng vật lý
             if (rb != null)
             {
-                rb.AddForce(_currentDirection * initialForce, ForceMode2D.Impulse);
-                // Giả định Minion Prefab có Collider với Bounciness = 1 để nảy
+                // Áp dụng vận tốc ban đầu để minion di chuyển thẳng
+                rb.linearVelocity = _currentDirection * initialForce;
             }
+
+            // Thiết lập hướng và hoạt ảnh chạy ban đầu cho visuals
+            if (MinionVisuals is EnemyHeroCharacterAdapter enemyAdapter)
+            {
+                // ✅ FIX CS1061: Ép kiểu sang lớp cụ thể để gọi phương thức
+                enemyAdapter.SetMovementDirection(_currentDirection);
+            }
+            // Thử ép kiểu với BossHeroCharacterAdapter nếu Minion dùng nó
+            else if (MinionVisuals is BossHeroCharacterAdapter bossAdapter)
+            {
+                // ✅ FIX CS1061: Ép kiểu sang lớp cụ thể để gọi phương thức
+                bossAdapter.SetMovementDirection(_currentDirection);
+            }
+
+            MinionVisuals.SetSpeed(initialForce);
         }
 
+        // THAY ĐỔI 3: CẬP NHẬT VISUALS DỰA TRÊN VẬN TỐC VẬT LÝ VÀ ÉP KIỂU
         protected override void Update()
         {
-            // GHI ĐÈ Update để Minion tự điều khiển animation/direction theo vận tốc vật lý
-            if (!IsAlive) return;
+            base.Update(); // Giữ lại để xử lý logic cơ sở của EnemyBehavior
 
-            if (rb != null)
+            if (!IsAlive || rb == null) return;
+
+            // Lấy vận tốc hiện tại để cập nhật hướng nhìn (sẽ thay đổi sau khi nảy)
+            float currentSpeed = rb.linearVelocity.magnitude;
+
+            if (currentSpeed > 0.01f)
             {
-                Vector2 currentMoveDir = rb.linearVelocity.normalized;
-                float speed = rb.linearVelocity.magnitude;
+                _currentDirection = rb.linearVelocity.normalized;
 
-                // Cập nhật hướng và animation cho Hero4D Adapter
-                if (MinionVisuals != null)
+                // Cập nhật hướng di chuyển và tốc độ cho Adapter (Adapter sẽ xử lý 4 hướng)
+                if (MinionVisuals is EnemyHeroCharacterAdapter enemyAdapter)
                 {
-                    if (MinionVisuals is EnemyHeroCharacterAdapter enemyAdapter)
-                    {
-                        enemyAdapter.SetMovementDirection(currentMoveDir);
-                    }
-                    
-                    MinionVisuals.SetSpeed(speed); // Speed sẽ là 0 nếu nó bị kẹt
-                    
-                    // Logic lật hình ảnh theo hướng X
-                    if (Mathf.Abs(currentMoveDir.x) > 0.01f)
-                    {
-                        MinionVisuals.SetLocalScale(new Vector3(currentMoveDir.x > 0 ? 1 : -1, 1, 1));
-                    }
+                    // ✅ FIX CS1061: Ép kiểu sang lớp cụ thể để gọi phương thức
+                    enemyAdapter.SetMovementDirection(_currentDirection);
                 }
+                else if (MinionVisuals is BossHeroCharacterAdapter bossAdapter)
+                {
+                    // ✅ FIX CS1061: Ép kiểu sang lớp cụ thể để gọi phương thức
+                    bossAdapter.SetMovementDirection(_currentDirection);
+                }
+
+                MinionVisuals.SetSpeed(currentSpeed);
+            }
+            else
+            {
+                // Nếu minion đã dừng, đặt về Idle
+                MinionVisuals.SetSpeed(0f);
             }
         }
-        
-        // SỬ DỤNG OnTriggerEnter2D từ BASE
-        // Logic sẽ chạy trong PlayerBehavior.CheckTriggerEnter2D
-        // và gọi TakeDamage cho Player.
 
-        // Ghi đè phương thức va chạm để xử lý hoạt ảnh tấn công khi chạm Player
-        private void OnTriggerEnter2D(Collider2D collision)
+        protected override void OnTriggerEnter2D(Collider2D collision)
         {
-            // Gọi lớp cha để xử lý sát thương
+            // Chỉ gọi lớp cha để xử lý hit từ Projectile/Minion khác.
             base.OnTriggerEnter2D(collision);
-            
-            if (_isAttacking) return;
-            
-            // Kiểm tra xem có va chạm với Player không
-            if (collision.GetComponent<PlayerBehavior>() != null)
-            {
-                if (MinionVisuals != null)
-                {
-                    if (_attackRoutine != null) StopCoroutine(_attackRoutine);
-                    _attackRoutine = StartCoroutine(AttackClipCoroutine());
-                }
-            }
-        }
-
-        private IEnumerator AttackClipCoroutine()
-        {
-            _isAttacking = true;
-            
-            // Chơi clip tấn công Hero4D
-            MinionVisuals.PlayWeaponAttack(AbilityType.SteelSword); // Giả định dùng ID của Sword
-
-            yield return new WaitForSeconds(attackAnimationDuration);
-
-            _isAttacking = false;
         }
 
         protected override void Die(bool flash)
         {
-            // Quan trọng: Tắt Kinematic khi chết (để đảm bảo không bị lỗi trong pool)
+            // Tắt Kinematic khi chết để reset Minion
             if (rb != null)
             {
                 rb.isKinematic = true;

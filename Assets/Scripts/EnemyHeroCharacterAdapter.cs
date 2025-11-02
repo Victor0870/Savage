@@ -1,10 +1,12 @@
+// File: Scripts/EnemyHeroCharacterAdapter.cs
+
 using Assets.HeroEditor4D.Common.Scripts.CharacterScripts;
 using Assets.HeroEditor4D.Common.Scripts.Enums;
-using OctoberStudio;
 using UnityEngine;
+using OctoberStudio;
 using UnityEngine.Events;
 
-// Định nghĩa các loại hoạt ảnh tấn công có thể chọn
+// ✅ BỔ SUNG: Enum cho lựa chọn animation trong Inspector
 public enum EnemyAttackAnimation
 {
     Jab,        // Đấm/Đâm nhanh (AttackManager.Jab())
@@ -22,7 +24,7 @@ public class EnemyHeroCharacterAdapter : MonoBehaviour, OctoberStudio.ICharacter
     [Header("Hero Editor 4D")]
     public Character4D Character4D;
 
-    // Trường mới để chọn Animation trong Inspector
+    // ✅ BỔ SUNG: Trường mới để chọn Animation trong Inspector
     [Header("Attack Animation")]
     [Tooltip("Chọn animation tấn công Hero4D sẽ kích hoạt khi kẻ thù chạm/tiếp cận.")]
     public EnemyAttackAnimation AttackAnimationType = EnemyAttackAnimation.Slash1H;
@@ -118,7 +120,7 @@ public class EnemyHeroCharacterAdapter : MonoBehaviour, OctoberStudio.ICharacter
     public void PlayDefeatAnimation() { _animationManager.Die(); }
     public void FlashHit(UnityAction onFinish = null) { _animationManager.Hit(); onFinish?.Invoke(); }
 
-    // Logic gọi animation dựa trên lựa chọn trong Inspector
+    // ✅ BỔ SUNG: Logic gọi animation dựa trên lựa chọn trong Inspector
     public void PlayWeaponAttack(OctoberStudio.AbilityType abilityType)
     {
         if (_animationManager != null && !_animationManager.IsAction)

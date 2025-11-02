@@ -1,3 +1,5 @@
+// File: Scripts svg/Enemies/EnemyBehavior.cs (Đã fix để tương thích 4 hướng của Boss)
+
 using OctoberStudio.Easing;
 using OctoberStudio.Enemy;
 using OctoberStudio.Extensions;
@@ -11,6 +13,13 @@ using System.Runtime.CompilerServices;
 
 namespace OctoberStudio
 {
+    // ✅ BỔ SUNG: Enum cho chế độ kích hoạt Animation tấn công (Proximity/Contact)
+    public enum EnemyAttackMode
+    {
+        Contact = 0,
+        Proximity = 1
+    }
+
     public class EnemyBehavior : MonoBehaviour
     {
         // HẰNG SỐ GỐC DÙNG CHO SHADER CỦA LEGACY ENEMY
@@ -18,14 +27,6 @@ namespace OctoberStudio
         protected static readonly int _Disolve = Shader.PropertyToID("_Disolve");
 
         private static readonly int HIT_HASH = "Hit".GetHashCode();
-        [Header("Melee Proximity Attack")]
-        [Tooltip("Khoảng cách (mét) để kích hoạt Animation tấn công.")]
-        [SerializeField] protected float proximityAttackRange = 0.5f;
-
-        [Tooltip("Thời gian (giây) giữa các lần tấn công liên tiếp.")]
-        [SerializeField] protected float proximityAttackCooldown = 0.7f;
-
-        protected float lastTimeAttacked = 0;
 
         [Header("Settings")]
         [Tooltip("The speed of the enemy")]
@@ -43,26 +44,43 @@ namespace OctoberStudio
 
         [SerializeField] bool shouldFadeIn;
 
-        [Header("References (Legacy)")]
-        [SerializeField] protected Rigidbody2D rb; // ĐÃ ĐỔI THÀNH PROTECTED
-        public Rigidbody2D RB => rb; // <-- PUBLIC PROPERTY KHẮC PHỤC LỖI CS1540
+        // --- ⚙️ CẤU HÌNH TẤN CÔNG ĐÃ SỬA ĐỔI ---
+        [Header("Attack Mode")]
+        [Tooltip("Chọn cách thức kích hoạt hoạt ảnh tấn công.")]
+        [SerializeField] protected EnemyAttackMode attackMode = EnemyAttackMode.Contact;
 
-        [SerializeField] protected SpriteRenderer spriteRenderer; // ĐÃ ĐỔI THÀNH PROTECTED
-        [SerializeField] protected DissolveSettings dissolveSettings; // ĐÃ ĐỔI THÀNH PROTECTED
-        [SerializeField] protected SpriteRenderer shadowSprite; // ĐÃ ĐỔI THÀNH PROTECTED
+        [Tooltip("Chỉ bật nếu Mode là Contact. Đánh dấu true để cho phép hoạt ảnh tấn công khi va chạm.")]
+        [SerializeField] bool attackOnContact = false;
+
+        [Header("Melee Proximity Attack")]
+        [Tooltip("Khoảng cách (mét) để kích hoạt Animation tấn công (chỉ dùng khi Mode là Proximity).")]
+        [SerializeField] protected float proximityAttackRange = 0.5f;
+
+        [Tooltip("Thời gian (giây) giữa các lần tấn công liên tiếp.")]
+        [SerializeField] protected float proximityAttackCooldown = 0.7f;
+
+        protected float lastTimeAttacked = 0;
+        // --- KẾT THÚC CẤU HÌNH TẤN CÔNG ---
+
+        [Header("References (Legacy)")]
+        [SerializeField] protected Rigidbody2D rb;
+        public Rigidbody2D RB => rb;
+
+        [SerializeField] protected SpriteRenderer spriteRenderer;
+        [SerializeField] protected DissolveSettings dissolveSettings;
+        [SerializeField] protected SpriteRenderer shadowSprite;
 
         // --- BỔ SUNG CHO HERO4D VÀ TẤN CÔNG ---
         [Header("Visuals (Hero4D)")]
         [Tooltip("Adapter xử lý visuals và animation (Boss/Enemy Hero4D Adapter)")]
-        [SerializeField] protected OctoberStudio.ICharacterBehavior characterVisuals; // ĐÃ ĐỔI THÀNH PROTECTED
+        [SerializeField] protected OctoberStudio.ICharacterBehavior characterVisuals;
 
         [Header("Attack on Contact")]
         [Tooltip("Bật tính năng chơi animation tấn công khi chạm Player (chỉ Hero4D)")]
-        [SerializeField] bool attackOnContact = false;
-        [SerializeField] float attackAnimationDuration = 0.5f;
+        [SerializeField] protected float attackAnimationDuration = 0.5f;
 
-        private Coroutine _attackRoutine;
-        private bool _isAttacking = false;
+        protected Coroutine _attackRoutine;
+        protected bool _isAttacking = false;
         // --- KẾT THÚC BỔ SUNG ---
 
         [SerializeField] Collider2D enemyCollider;
@@ -186,26 +204,26 @@ namespace OctoberStudio
 
         protected virtual void Update()
         {
-            if (!IsAlive || !IsMoving || PlayerBehavior.Player == null) return;
+            if (!IsAlive || !_isAttacking && !IsMoving || PlayerBehavior.Player == null) return;
 
-            // --- ⚔️ LOGIC TẤN CÔNG THEO KHOẢNG CÁCH (Animation Trigger) ---
-                // Chỉ chạy nếu kẻ thù có Adapter Hero4D và cờ attackOnContact bật.
-                if (characterVisuals != null && attackOnContact && !IsMovingToCustomPoint)
+            // --- ⚔️ LOGIC PROXIMITY ATTACK (Kích hoạt Animation) ---
+            if (attackMode == EnemyAttackMode.Proximity && characterVisuals != null && !IsMovingToCustomPoint)
+            {
+                var distanceSqr = (Center - PlayerBehavior.CenterPosition).sqrMagnitude;
+                var rangeSqr = proximityAttackRange * proximityAttackRange;
+
+                if (distanceSqr <= rangeSqr &&
+                    Time.time - lastTimeAttacked > proximityAttackCooldown &&
+                    !_isAttacking)
                 {
-                    var distanceSqr = (Center - PlayerBehavior.CenterPosition).sqrMagnitude;
-                    var rangeSqr = proximityAttackRange * proximityAttackRange;
-
-                    // 1. Kiểm tra trong tầm + 2. Hết Cooldown + 3. Không đang tấn công
-                    if (distanceSqr <= rangeSqr &&
-                        Time.time - lastTimeAttacked > proximityAttackCooldown &&
-                        !_isAttacking)
-                    {
-                        // Kích hoạt animation tấn công (AttackClipCoroutine sẽ gọi Slash)
-                        if (_attackRoutine != null) StopCoroutine(_attackRoutine);
-                        _attackRoutine = StartCoroutine(AttackClipCoroutine());
-                        lastTimeAttacked = Time.time;
-                    }
+                    if (_attackRoutine != null) StopCoroutine(_attackRoutine);
+                    _attackRoutine = StartCoroutine(AttackClipCoroutine());
+                    lastTimeAttacked = Time.time;
                 }
+            }
+            // --- ⚔️ KẾT THÚC LOGIC PROXIMITY ATTACK ---
+
+            if (!IsMoving) return;
 
             Vector3 target = IsMovingToCustomPoint ? CustomPoint : PlayerBehavior.Player.transform.position;
 
@@ -224,34 +242,46 @@ namespace OctoberStudio
 
             transform.position += direction * Time.deltaTime * speed;
 
-            // --- LOGIC CHUYỂN ĐỘNG & FLIP (CHỐNG NHẤP NHÁY) ---
+            // --- LOGIC CHUYỂN ĐỘNG & FLIP (FIXED) ---
             if (!scaleCoroutine.ExistsAndActive())
             {
                 // MỚI: Dùng Adapter Hero4D
                 if (characterVisuals != null)
                 {
                     var currentScaleX = transform.localScale.x;
+                    float flipDeadZone = 0.01f;
+                    bool isMovingHorizontally = Mathf.Abs(direction.x) > flipDeadZone;
 
-                    // Logic chống nhấp nháy
-                    if ((direction.x > 0 && currentScaleX < 0) || (direction.x < 0 && currentScaleX > 0))
+                    // 1. ÁP DỤNG FLIP X THỦ CÔNG CHỈ KHI KHÔNG PHẢI LÀ ADAPTER HỖ TRỢ 4 HƯỚNG
+                    // Nếu là BossHeroCharacterAdapter, ta VÔ HIỆU HÓA logic flip này để tránh xung đột
+                    if (!(characterVisuals is BossHeroCharacterAdapter))
                     {
-                        if (Time.unscaledTime - lastTimeSwitchedDirection > 0.1f)
+                        if ((direction.x > 0 && currentScaleX < 0) || (direction.x < 0 && currentScaleX > 0))
                         {
-                            characterVisuals.SetLocalScale(new Vector3(direction.x > 0 ? 1 : -1, 1, 1));
-                            lastTimeSwitchedDirection = Time.unscaledTime;
+                            if (Time.unscaledTime - lastTimeSwitchedDirection > 0.1f)
+                            {
+                                characterVisuals.SetLocalScale(new Vector3(direction.x > 0 ? 1 : -1, transform.localScale.y, transform.localScale.z));
+                                lastTimeSwitchedDirection = Time.unscaledTime;
+                            }
+                        }
+                        else if (isMovingHorizontally)
+                        {
+                            characterVisuals.SetLocalScale(new Vector3(currentScaleX > 0 ? 1 : -1, transform.localScale.y, transform.localScale.z));
                         }
                     }
-                    else if (direction.x != 0)
-                    {
-                        // Vẫn update scale để áp dụng Player.SizeMultiplier & duy trì hướng
-                        characterVisuals.SetLocalScale(new Vector3(currentScaleX > 0 ? 1 : -1, 1, 1));
-                    }
 
-                    // Cập nhật tốc độ và hướng cho Adapter
+
+                    // 2. Cập nhật hướng di chuyển thô cho Adapter (Adapter sẽ tự quyết định hướng 4-chiều)
                     if (characterVisuals is EnemyHeroCharacterAdapter enemyAdapter)
                     {
                         enemyAdapter.SetMovementDirection(direction.XY());
                     }
+                    else if (characterVisuals is BossHeroCharacterAdapter bossAdapter)
+                    {
+                        bossAdapter.SetMovementDirection(direction.XY());
+                    }
+
+                    // 3. Cập nhật tốc độ (kích hoạt animation Run/Idle và SetDirection 4-chiều trong Adapter)
                     characterVisuals.SetSpeed(direction.magnitude * speed);
                 }
                 // CŨ: Dùng transform.localScale trực tiếp (Legacy)
@@ -273,7 +303,7 @@ namespace OctoberStudio
             }
         }
 
-        // ĐÃ SỬA: Thay đổi sang protected virtual để Minion có thể ghi đè logic
+        // ... (Các hàm khác)
         protected virtual void OnTriggerEnter2D(Collider2D other)
         {
             ProjectileBehavior projectile = other.GetComponent<ProjectileBehavior>();
@@ -299,29 +329,27 @@ namespace OctoberStudio
 
         public void CheckTriggerEnter2D(Collider2D collision)
         {
-            // ...
-            //if (!attackOnContact) return;
-            //if (_isAttacking) return;
+            // Logic này chỉ kích hoạt nếu chế độ là CONTACT
+            if (attackMode != EnemyAttackMode.Contact) return;
 
-            // ✅ KHẮC PHỤC: Loại bỏ logic kiểm tra component PlayerBehavior bị sai.
-            // Nếu có Adapter, ta coi đó là va chạm hợp lệ và kích hoạt tấn công.
-            //if (characterVisuals != null)
-            //{
-           //     if (_attackRoutine != null) StopCoroutine(_attackRoutine);
-           //     _attackRoutine = StartCoroutine(AttackClipCoroutine());
-           // }
+            if (!attackOnContact) return;
+            if (_isAttacking) return;
+
+            // Kích hoạt clip tấn công nếu chạm Player (Chúng ta biết hàm này chỉ được gọi khi Player chạm)
+            if (characterVisuals != null)
+            {
+                if (_attackRoutine != null) StopCoroutine(_attackRoutine);
+                _attackRoutine = StartCoroutine(AttackClipCoroutine());
+            }
         }
 
-        // Hàm này sau đó gọi PlayWeaponAttack(AbilityType.SteelSword)
-        // và EnemyAdapter sẽ bắt nó để chơi Jab() (như đã sửa ở bước 2).
         private IEnumerator AttackClipCoroutine()
         {
             _isAttacking = true;
 
             if (characterVisuals != null)
             {
-                // Dùng AbilityType.SteelSword như một *placeholder* để thỏa mãn
-                // chữ ký của Interface, logic animation thực tế nằm trong Adapter.
+                // Kích hoạt animation tấn công (sử dụng logic PlayWeaponAttack trong Adapter)
                 characterVisuals.PlayWeaponAttack(AbilityType.SteelSword);
             }
 

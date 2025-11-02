@@ -49,3 +49,9 @@ MonoBehaviour:
       type: 3}
     fencePrefab: {fileID: 6967435664897069084, guid: 5558991dbcad058409cdcf21cd73dea0,
       type: 3}
+  - bossType: 6
+    displayName: SPAWNER
+    bossPrefab: {fileID: 5064608373042331970, guid: 7bbdcb3e8f30cae449f6e01d679906ce,
+      type: 3}
+    fencePrefab: {fileID: 6967435664897069084, guid: 5558991dbcad058409cdcf21cd73dea0,
+      type: 3}

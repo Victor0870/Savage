@@ -538,7 +538,7 @@ MonoBehaviour:
     m_PreExtrapolationTime: 0
     m_DisplayName: Boss
   - m_Version: 1
-    m_Start: 180
+    m_Start: 49.99999999999999
     m_ClipIn: 0
     m_Asset: {fileID: 6552528272748752163}
     m_Duration: 5
@@ -2835,7 +2835,7 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 11f7a3d6739d4c041a49b1cfb4f44189, type: 3}
   m_Name: Boss
   m_EditorClassIdentifier: 
-  bossType: 1
+  bossType: 6
   bossUIWarningDuration: 2
   bossRedCircleSpawnDuration: 1
   bossRedCircleStayDuration: 2

@@ -24,28 +24,24 @@ namespace OctoberStudio.Enemy
         [SerializeField] float spawnMaxRadius = 2f;
         
         [Header("Minion Data")]
-        [Tooltip("EnemyType phải được định nghĩa trong EnemyDatabase và trỏ tới Prefab Minion.")]
-        [SerializeField] EnemyType minionEnemyType = EnemyType.Shade; 
+        [Tooltip("Prefab Minion Boss được cấu hình riêng (có chứa BossMinionBehavior).")]
+        [SerializeField] private GameObject minionPrefab; // ✅ TRƯỜNG THAY THẾ
 
         private const float INVULNERABLE_ALPHA = 0.5f;
         private const float FULL_ALPHA = 1f;
 
         private IBossCharacterBehavior BossVisuals => characterVisuals as IBossCharacterBehavior;
-        
+
         private Coroutine _behaviorCoroutine;
 
         public override void Play()
         {
             base.Play();
-            
-            // Ép kiểu Adapter từ lớp cha (EnemyBehavior)
-            // LƯU Ý: characterVisuals là protected, nên truy cập trực tiếp (không cần tiền tố this. hoặc BossSpawnerBehavior.)
-           // BossVisuals = characterVisuals as IBossCharacterBehavior;
 
             if (_behaviorCoroutine != null) StopCoroutine(_behaviorCoroutine);
             _behaviorCoroutine = StartCoroutine(BossBehaviorCoroutine());
         }
-        
+
         private IEnumerator BossBehaviorCoroutine()
         {
             while (IsAlive)
@@ -59,14 +55,14 @@ namespace OctoberStudio.Enemy
         {
             // 1. Kích hoạt Miễn nhiễm & Hiệu ứng mờ
             SetInvulnerability(true, INVULNERABLE_ALPHA);
-            
+
             if (BossVisuals != null) BossVisuals.SetSpeed(1f);
 
             IsMoving = true;
-            
+
             // 2. Di chuyển ngẫu nhiên
             Vector2 randomPoint = StageController.FieldManager.Fence.GetRandomPointInside(1f);
-            
+
             IsMovingToCustomPoint = true;
             CustomPoint = randomPoint;
 
@@ -90,7 +86,7 @@ namespace OctoberStudio.Enemy
         {
             // 1. Hủy Miễn nhiễm & Khôi phục Alpha
             SetInvulnerability(false, FULL_ALPHA);
-            
+
             if (BossVisuals != null) BossVisuals.PlayChargeAnimation(true);
 
             // 2. Đẻ quái lần lượt trong 3s
@@ -101,7 +97,7 @@ namespace OctoberStudio.Enemy
                 SpawnMinion();
                 yield return new WaitForSeconds(timeBetweenSpawns);
             }
-            
+
             float elapsedSpawnTime = minionsToSpawn * timeBetweenSpawns;
             yield return new WaitForSeconds(Mathf.Max(0, spawnDuration - elapsedSpawnTime));
 
@@ -118,7 +114,7 @@ namespace OctoberStudio.Enemy
             // Áp dụng cho Legacy Boss (SpriteRenderer cũ)
             if (spriteRenderer != null)
             {
-                spriteRenderer.DoAlpha(targetAlpha, 0.2f); 
+                spriteRenderer.DoAlpha(targetAlpha, 0.2f);
             }
             // Áp dụng cho Hero4D Boss (qua Adapter)
             if (BossVisuals != null)
@@ -129,12 +125,23 @@ namespace OctoberStudio.Enemy
 
         private void SpawnMinion()
         {
+            if (minionPrefab == null)
+            {
+                Debug.LogError("Minion Prefab chưa được gán trong Boss Spawner!");
+                return;
+            }
+
             Vector2 spawnOffset = Random.onUnitSphere.XY().normalized * Random.Range(spawnMinRadius, spawnMaxRadius);
             Vector2 spawnPosition = transform.position.XY() + spawnOffset;
             Vector2 initialDirection = spawnOffset.normalized;
 
-            var minionEnemy = StageController.EnemiesSpawner.Spawn(minionEnemyType, spawnPosition);
-            
+            // ✅ THAY ĐỔI: Instantiate trực tiếp Prefab Minion đã tách biệt.
+            var minionObject = Instantiate(minionPrefab, spawnPosition, Quaternion.identity);
+            var minionEnemy = minionObject.GetComponent<EnemyBehavior>();
+
+            // LƯU Ý: Phải gọi Play() thủ công nếu Minion không tự gọi trong Awake/Start.
+            minionEnemy.Play();
+
             if (minionEnemy != null)
             {
                 // KHẮC PHỤC CS1540: Truy cập RB thông qua Public Property minionEnemy.RB
