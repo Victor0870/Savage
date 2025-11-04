@@ -6981,7 +6981,11 @@ PrefabInstance:
     m_RemovedComponents: []
     m_RemovedGameObjects: []
     m_AddedGameObjects: []
-    m_AddedComponents: []
+    m_AddedComponents:
+    - targetCorrespondingSourceObject: {fileID: 5581311098160432699, guid: 4eabb153d78a44e4eb822659800d57e0,
+        type: 3}
+      insertIndex: -1
+      addedObject: {fileID: 1846839794352731019}
   m_SourcePrefab: {fileID: 100100000, guid: 4eabb153d78a44e4eb822659800d57e0, type: 3}
 --- !u!4 &5944102039390717726 stripped
 Transform:
@@ -6989,6 +6993,25 @@ Transform:
     type: 3}
   m_PrefabInstance: {fileID: 2709539393737423692}
   m_PrefabAsset: {fileID: 0}
+--- !u!1 &7561257241625050487 stripped
+GameObject:
+  m_CorrespondingSourceObject: {fileID: 5581311098160432699, guid: 4eabb153d78a44e4eb822659800d57e0,
+    type: 3}
+  m_PrefabInstance: {fileID: 2709539393737423692}
+  m_PrefabAsset: {fileID: 0}
+--- !u!114 &1846839794352731019
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 7561257241625050487}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: f6b76e96c6e6a124abaf0d1bcba04ae9, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
+  moveDistance: 2.9
 --- !u!1001 &2861553576017459191
 PrefabInstance:
   m_ObjectHideFlags: 0
@@ -7936,6 +7959,10 @@ PrefabInstance:
         type: 3}
       insertIndex: -1
       addedObject: {fileID: 8538611630215724873}
+    - targetCorrespondingSourceObject: {fileID: 7104151141500544920, guid: 566f8d2794340428c8ec23721fb1b7af,
+        type: 3}
+      insertIndex: -1
+      addedObject: {fileID: 695010028618847268}
     - targetCorrespondingSourceObject: {fileID: 5077217698463541399, guid: 566f8d2794340428c8ec23721fb1b7af,
         type: 3}
       insertIndex: -1
@@ -8038,6 +8065,30 @@ MonoBehaviour:
           m_StringArgument: 
           m_BoolArgument: 0
         m_CallState: 2
+      - m_Target: {fileID: 695010028618847268}
+        m_TargetAssemblyTypeName: ButtonCaller, Assembly-CSharp
+        m_MethodName: CallMoveObject
+        m_Mode: 1
+        m_Arguments:
+          m_ObjectArgument: {fileID: 0}
+          m_ObjectArgumentAssemblyTypeName: UnityEngine.Object, UnityEngine
+          m_IntArgument: 0
+          m_FloatArgument: 0
+          m_StringArgument: 
+          m_BoolArgument: 0
+        m_CallState: 2
+--- !u!114 &695010028618847268
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 3735391421483689429}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: 993f58324e4d3034c9003dd65baf529e, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
 --- !u!114 &3869681282846302709 stripped
 MonoBehaviour:
   m_CorrespondingSourceObject: {fileID: 7273907107761021880, guid: 566f8d2794340428c8ec23721fb1b7af,

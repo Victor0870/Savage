@@ -21,8 +21,8 @@ public class CharacterInventorySync : MonoBehaviour
     // CBS Modules
     private ICBSInventory CBSInventory;
 
-    // CACHE: Lưu trữ Item ID đang được trang bị theo slot Hero4D
-    private Dictionary<EquipmentPart, string> _equippedCache = new Dictionary<EquipmentPart, string>();
+    // CACHE: Lưu trữ CBSInventoryItem đang được trang bị theo slot Hero4D (để lấy InstanceID khi cần UnEquip)
+    private Dictionary<EquipmentPart, CBSInventoryItem> _equippedCache = new Dictionary<EquipmentPart, CBSInventoryItem>();
 
     void Start()
     {
@@ -75,7 +75,7 @@ public class CharacterInventorySync : MonoBehaviour
                         Character4D.Equip(mappingResult.ItemSprite, mappingResult.Part, null);
 
                         // CẬP NHẬT CACHE
-                        _equippedCache[mappingResult.Part] = item.ItemID;
+                        _equippedCache[mappingResult.Part] = item; // Lưu trữ cả object để lấy InstanceID
                     }
                     else
                     {
@@ -109,15 +109,35 @@ public class CharacterInventorySync : MonoBehaviour
         Character4D.Initialize();
     }
 
-    // Hàm trợ giúp để gỡ bỏ Item và cập nhật cache
+    /// <summary>
+    /// Hàm trợ giúp gỡ bỏ Item và gửi lệnh UnEquip lên server CBS.
+    /// </summary>
     private void AttemptUnequipFromCache(EquipmentPart part)
     {
-        if (_equippedCache.ContainsKey(part))
+        // Cần lấy Item Instance ID trước khi xóa khỏi cache
+        if (_equippedCache.TryGetValue(part, out CBSInventoryItem equippedItem))
         {
-            string equippedItemId = _equippedCache[part];
-            Debug.Log($"[WEAPON CONFLICT] Gỡ bỏ Item {equippedItemId} khỏi slot {part} do xung đột vũ khí.");
+            Debug.Log($"[WEAPON CONFLICT] TỰ ĐỘNG GỠ BỎ Item {equippedItem.ItemID} (Instance: {equippedItem.InstanceID}) khỏi slot {part} do xung đột. Gửi lệnh lên Server.");
+
+            // **********************************************
+            // * BƯỚC QUAN TRỌNG: GỌI LỆNH THÁO TRANG BỊ LÊN SERVER *
+            // **********************************************
+            // Gửi lệnh tháo trang bị lên server.
+            CBSInventory.UnEquipItem(equippedItem.InstanceID, result =>
+            {
+                if (!result.IsSuccess)
+                {
+                    Debug.LogError($"[UNEQUIP ERROR] Lỗi khi gỡ trang bị Item {equippedItem.ItemID} khỏi server: {result.Error.Message}");
+                }
+            });
+
+            // Gỡ hình ảnh ngay lập tức để mô hình hiển thị đúng
             Character4D.UnEquip(part);
+
+            // Xóa khỏi cache cục bộ
             _equippedCache.Remove(part);
+
+            Debug.Log($"[CACHE UPDATE] Đã xóa item cũ khỏi cache và Hero4D.");
         }
     }
 
@@ -150,11 +170,23 @@ public class CharacterInventorySync : MonoBehaviour
             // Logic này sẽ không ảnh hưởng đến các slot giáp (Armor, Helmet, Vest...)
 
             // --- B2: LOGIC GỠ BỎ XUNG ĐỘT CÙNG SLOT (One-to-one conflict: Helmet vs Helmet, Vest vs Vest) ---
-            if (_equippedCache.TryGetValue(targetPart, out string equippedItemId))
+            if (_equippedCache.TryGetValue(targetPart, out CBSInventoryItem equippedItem))
             {
-                if (equippedItemId != cbsItem.ItemID)
+                if (equippedItem.InstanceID != cbsItem.InstanceID) // So sánh bằng InstanceID
                 {
-                    Debug.Log($"[CACHE CONFLICT] Slot {targetPart} đang bị Item {equippedItemId} chiếm giữ. Tự động gỡ bỏ item cũ.");
+                    Debug.Log($"[CACHE CONFLICT] Slot {targetPart} đang bị Item {equippedItem.ItemID} (Instance: {equippedItem.InstanceID}) chiếm giữ. Tự động gỡ bỏ item cũ và gửi lệnh lên Server.");
+
+                    // **********************************************
+                    // * BƯỚC QUAN TRỌNG: GỌI LỆNH THÁO TRANG BỊ LÊN SERVER *
+                    // **********************************************
+                    CBSInventory.UnEquipItem(equippedItem.InstanceID, result =>
+                    {
+                        if (!result.IsSuccess)
+                        {
+                             Debug.LogError($"[UNEQUIP ERROR] Lỗi khi gỡ trang bị Item {equippedItem.ItemID} khỏi server: {result.Error.Message}");
+                        }
+                    });
+
                     Character4D.UnEquip(targetPart);
                     _equippedCache.Remove(targetPart);
                     Debug.Log($"[CACHE UPDATE] Đã gỡ bỏ item cũ khỏi cache và Hero4D.");
@@ -172,8 +204,8 @@ public class CharacterInventorySync : MonoBehaviour
             Debug.Log($"[EQUIP CALL] Gọi Character4D.Equip(Part: {targetPart})");
             Character4D.Equip(mappingResult.ItemSprite, targetPart, customColor);
 
-            // CẬP NHẬT CACHE
-            _equippedCache[targetPart] = cbsItem.ItemID;
+            // CẬP NHẬT CACHE (Sử dụng CBSInventoryItem)
+            _equippedCache[targetPart] = cbsItem;
 
             Debug.Log($"[EQUIP SUCCESS] Trang bị thành công: {cbsItem.ItemID} -> {targetPart}");
         }
@@ -189,10 +221,11 @@ public class CharacterInventorySync : MonoBehaviour
         var part = GetEquipmentPartFromItemID(cbsItem.ItemID);
         Debug.Log($"[UNEQUIP MAPPING] Item ID: {cbsItem.ItemID} được ánh xạ tới Part: {part}");
 
-        // Kiểm tra cache trước khi gỡ
+        // Kiểm tra cache trước khi gỡ (Cập nhật logic so sánh bằng InstanceID)
         if (part != EquipmentPart.Cape)
         {
-            if (_equippedCache.ContainsKey(part) && _equippedCache[part] == cbsItem.ItemID)
+            // So sánh bằng InstanceID thay vì ItemID (đảm bảo gỡ đúng instance)
+            if (_equippedCache.ContainsKey(part) && _equippedCache.TryGetValue(part, out CBSInventoryItem equippedItem) && equippedItem.InstanceID == cbsItem.InstanceID)
             {
                  Debug.Log($"[UNEQUIP CALL] Gọi Character4D.UnEquip(Part: {part})");
                  Character4D.UnEquip(part);

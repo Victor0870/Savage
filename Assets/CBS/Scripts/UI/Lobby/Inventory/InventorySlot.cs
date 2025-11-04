@@ -1,6 +1,7 @@
 ﻿using System;
 using UnityEngine;
 using UnityEngine.UI;
+using TMPro;
 
 namespace CBS.UI
 {
@@ -11,7 +12,7 @@ namespace CBS.UI
         [SerializeField]
         private GameObject CounterBack;
         [SerializeField]
-        private Text Counter;
+        private TMP_Text Counter;
 
         public CBSInventoryItem Item { get; private set; }
         private Action<CBSInventoryItem> ClickAction { get; set; }
