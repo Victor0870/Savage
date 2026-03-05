@@ -17,7 +17,7 @@ UserSettings/
 *.unityproj
 
 # IDE generated
-.vscode/
+
 *.csproj
 *.sln
 *.suo
@@ -46,9 +46,12 @@ UserSettings/
 .idea/
 
 # Visual Studio Code
-.vscode/
+
 .vs/
 
 # Mac/Windows system files
 .DS_Store
 Thumbs.db
+
+# Nova AI
+Nova_ai.py
